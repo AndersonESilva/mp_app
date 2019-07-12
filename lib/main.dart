@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'feature/feed/feedAppBar.dart';
 import 'feature/feed/feedPage.dart';
+import 'feature/profile/profilePage.dart';
 import 'feature/seach/seachAppBar.dart';
 import 'feature/seach/seachPage.dart';
 
@@ -34,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _children = [
     FeedPage(),
     SeachPage(),
-    SeachPage()
+    ProfilePage()
   ];
 
   int _currentIndex = 0;
