@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'feature/feed/feedAppBar.dart';
 import 'feature/feed/feedPage.dart';
+import 'feature/profile/profileAppBar.dart';
 import 'feature/profile/profilePage.dart';
 import 'feature/seach/seachAppBar.dart';
 import 'feature/seach/seachPage.dart';
@@ -93,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       case 2:
         {
-          return SeachAppBar().build(context);
+          return ProfileAppBar().build(context);
         }
     }
   }
