@@ -60,18 +60,17 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildDetail(){
+  Widget _buildDetail() {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Colors.grey[500],
-            width: 0.8,
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Colors.grey[500],
+              width: 0.8,
+            ),
           ),
         ),
-      ),
-      margin: const EdgeInsets.only(top: 35)
-    );
+        margin: const EdgeInsets.only(top: 35));
   }
 
   Widget _buildEvents() {
@@ -115,24 +114,32 @@ Widget _buildItems(int index) {
               alignment: Alignment.topLeft,
               child: Column(
                 children: <Widget>[
-                  Text(
-                    LanguageBr.profilePage_text_event_name,
-                    style: TextStyle(
-                      color: Colors.grey[500],
+                  Container(
+                    margin: const EdgeInsets.only(top: 5,bottom: 5),
+                    child: Text(
+                      LanguageBr.profilePage_text_event_name,
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                      ),
                     ),
                   ),
-                  Text(
-                    LanguageBr.profilePage_text_event_local,
-                    style: TextStyle(
-                      color: Colors.grey[500],
+                  Container(
+                    margin: const EdgeInsets.only(top: 5, bottom: 5),
+                    child: Text(
+                      LanguageBr.profilePage_text_event_local,
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                      ),
                     ),
                   ),
-                  Text(
-                    LanguageBr.profilePage_text_event_date,
-                    style: TextStyle(
-                      color: Colors.grey[500],
-                    ),
-                  )
+                  Container(
+                      margin: const EdgeInsets.only(bottom: 5),
+                      child: Text(
+                        LanguageBr.profilePage_text_event_date,
+                        style: TextStyle(
+                          color: Colors.grey[500],
+                        ),
+                      )),
                 ],
               ),
             ))
