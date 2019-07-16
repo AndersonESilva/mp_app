@@ -2,16 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:mp_app/useful/languageBr.dart';
 
 class ProfilePage extends StatelessWidget {
-  List _toDoList = ["aaa"];
+  List _toDoList = ["aaa", "sdsds", "fsadfa", "dwa", "dwa", "dwa", "dwa"];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        _buildProfileImage(),
-        _buildProfileData(),
-        _buildEvents()
-      ],
+    return Container(
+      child: CustomScrollView(
+        slivers: <Widget>[
+          SliverList(
+              delegate: SliverChildListDelegate(
+                  [_buildProfileImage(), _buildProfileData(), _buildDetail()])),
+          SliverGrid(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              delegate:
+                  SliverChildBuilderDelegate((BuildContext context, int index) {
+                return _buildItems(index);
+              }, childCount: _toDoList.length))
+        ],
+      ),
     );
   }
 
@@ -39,14 +49,28 @@ class ProfilePage extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20),
       child: Column(
         children: <Widget>[
-          Text(LanguageBr.profilePage_text_name,
+          Text(LanguageBr.profilePage_text_full_name,
               style: TextStyle(fontSize: 25.0)),
-          Text(LanguageBr.profilePage_text_Local,
+          Text(LanguageBr.profilePage_text_local,
               style: TextStyle(
                 color: Colors.grey[500],
               )),
         ],
       ),
+    );
+  }
+
+  Widget _buildDetail(){
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: Colors.grey[500],
+            width: 0.8,
+          ),
+        ),
+      ),
+      margin: const EdgeInsets.only(top: 35)
     );
   }
 
@@ -64,75 +88,55 @@ class ProfilePage extends StatelessWidget {
       margin: const EdgeInsets.only(top: 35),
       child: GridView.count(
           crossAxisCount: 2,
-          children: List.generate(choices.length, (index) {
+          children: List.generate(13, (index) {
             return Center(
-              child: ChoiceCard(choice: choices[index]),
+              child: _buildItems(index),
             );
           })),
     ));
   }
 }
 
-class Choice {
-  const Choice({this.title, this.icon});
-
-  final String title;
-  final IconData icon;
-}
-
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Car', icon: Icons.directions_car),
-  const Choice(title: 'Bicycle', icon: Icons.directions_bike),
-  const Choice(title: 'Boat', icon: Icons.directions_boat),
-  const Choice(title: 'Bus', icon: Icons.directions_bus),
-  const Choice(title: 'Train', icon: Icons.directions_railway),
-  const Choice(title: 'Walk', icon: Icons.directions_walk),
-  const Choice(title: 'Car', icon: Icons.directions_car),
-  const Choice(title: 'Bicycle', icon: Icons.drafts),
-  const Choice(title: 'Boat', icon: Icons.dvr),
-  const Choice(title: 'Bus', icon: Icons.copyright),
-  const Choice(title: 'Train', icon: Icons.cloud_off),
-  const Choice(title: 'Car', icon: Icons.directions_car),
-  const Choice(title: 'Bicycle', icon: Icons.directions_bike),
-  const Choice(title: 'Boat', icon: Icons.directions_boat),
-  const Choice(title: 'Bus', icon: Icons.directions_bus),
-  const Choice(title: 'Train', icon: Icons.directions_railway),
-  const Choice(title: 'Walk', icon: Icons.directions_walk),
-  const Choice(title: 'Car', icon: Icons.directions_car),
-  const Choice(title: 'Bicycle', icon: Icons.drafts),
-  const Choice(title: 'Boat', icon: Icons.dvr),
-  const Choice(title: 'Bus', icon: Icons.copyright),
-  const Choice(title: 'Train', icon: Icons.cloud_off),
-  const Choice(title: 'Car', icon: Icons.directions_car),
-  const Choice(title: 'Bicycle', icon: Icons.directions_bike),
-  const Choice(title: 'Boat', icon: Icons.directions_boat),
-  const Choice(title: 'Bus', icon: Icons.directions_bus),
-  const Choice(title: 'Train', icon: Icons.directions_railway),
-  const Choice(title: 'Walk', icon: Icons.directions_walk),
-  const Choice(title: 'Car', icon: Icons.directions_car),
-  const Choice(title: 'Bicycle', icon: Icons.drafts),
-  const Choice(title: 'Boat', icon: Icons.dvr),
-  const Choice(title: 'Bus', icon: Icons.copyright),
-  const Choice(title: 'Train', icon: Icons.cloud_off),
-];
-
-class ChoiceCard extends StatelessWidget {
-  const ChoiceCard({Key key, this.choice}) : super(key: key);
-  final Choice choice;
-
-  @override
-  Widget build(BuildContext context) {
-    final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return Card(
-        color: Colors.white,
-        child: Center(
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Icon(choice.icon, size: 80.0, color: textStyle.color),
-                Text(choice.title, style: textStyle),
-              ]),
-        ));
-  }
+Widget _buildItems(int index) {
+  return Card(
+    child: Column(
+      children: <Widget>[
+        Container(
+            alignment: Alignment.topCenter,
+            width: double.maxFinite,
+            height: 120.0,
+            child: Image.asset(
+              'images/ferrari.jpg',
+              fit: BoxFit.fill,
+            )),
+        Container(
+            margin: const EdgeInsets.only(left: 10),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    LanguageBr.profilePage_text_event_name,
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                  Text(
+                    LanguageBr.profilePage_text_event_local,
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                  Text(
+                    LanguageBr.profilePage_text_event_date,
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                    ),
+                  )
+                ],
+              ),
+            ))
+      ],
+    ),
+  );
 }

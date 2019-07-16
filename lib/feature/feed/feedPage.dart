@@ -9,11 +9,11 @@ class FeedPage extends StatelessWidget {
         padding: EdgeInsets.only(top: 10.0),
         itemCount: _toDoList.length,
         itemBuilder: (contexto, index) {
-          return _buildItem(context, index);
+          return _buildItem(index);
         });
   }
 
-  Widget _buildItem(BuildContext context, int index) {
+  Widget _buildItem(int index) {
     return Column(
       children: <Widget>[
         _buildItemTitle(),
