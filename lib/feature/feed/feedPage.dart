@@ -28,8 +28,10 @@ class FeedPage extends StatelessWidget {
         children: <Widget>[
           _buildItemTitle(),
           Container(
-              padding: const EdgeInsets.only(top: 10),
-              child: Image.network("https://www.privilegebrasil.com//conteudo/anexo/BANNER4.jpg",
+             width: double.maxFinite,
+             height: 317.0,
+             padding: const EdgeInsets.only(top: 10),
+             child: Image.network("https://www.privilegebrasil.com//conteudo/anexo/BANNER4.jpg",
                 fit: BoxFit.fill,)
           ),
           _buildItemFooter(),
