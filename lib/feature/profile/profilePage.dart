@@ -74,74 +74,49 @@ class ProfilePage extends StatelessWidget {
         margin: const EdgeInsets.only(top: 35));
   }
 
-  Widget _buildEvents() {
-    return Expanded(
-        child: Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Colors.grey[500],
-            width: 1.5,
-          ),
-        ),
-      ),
-      margin: const EdgeInsets.only(top: 35),
-      child: GridView.count(
-          crossAxisCount: 2,
-          children: List.generate(13, (index) {
-            return Center(
-              child: _buildItems(index),
-            );
-          })),
-    ));
-  }
-
   Widget _buildItems(int index) {
     return Card(
       child: Column(
         children: <Widget>[
           Container(
-              alignment: Alignment.topCenter,
               width: double.maxFinite,
               height: 120.0,
-              child: Image.asset(
-                'images/ferrari.jpg',
+              child: Image.network(
+                'http://www.voicers.com.br/wp-content/uploads/2018/09/menos-30-fest-fortaleza-banner-1.jpg',
                 fit: BoxFit.fill,
               )),
           Container(
-              margin: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(top: 5,bottom: 5),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(top: 8,bottom: 5),
+                    child: Text(
+                      LanguageBr.profilePage_text_event_name,
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin: const EdgeInsets.only(top: 5, bottom: 5, left: 5),
+                    child: Text(
+                      LanguageBr.profilePage_text_event_local,
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                  ),
+                  Container(
+                      alignment: Alignment.topLeft,
+                      margin: const EdgeInsets.only(bottom: 5, left: 5),
                       child: Text(
-                        LanguageBr.profilePage_text_event_name,
+                        LanguageBr.profilePage_text_event_date,
                         style: TextStyle(
                           color: Colors.grey[500],
                         ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 5, bottom: 5),
-                      child: Text(
-                        LanguageBr.profilePage_text_event_local,
-                        style: TextStyle(
-                          color: Colors.grey[500],
-                        ),
-                      ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: Text(
-                          LanguageBr.profilePage_text_event_date,
-                          style: TextStyle(
-                            color: Colors.grey[500],
-                          ),
-                        )),
-                  ],
-                ),
+                      )),
+                ],
               ))
         ],
       ),
