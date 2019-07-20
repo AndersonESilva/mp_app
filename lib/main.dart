@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'feature/feed/feedAppBar.dart';
-import 'feature/feed/feedPage.dart';
-import 'feature/profile/profileAppBar.dart';
-import 'feature/profile/profilePage.dart';
-import 'feature/seach/seachAppBar.dart';
-import 'feature/seach/seachPage.dart';
+import 'feature/feed/feed_app_bar.dart';
+import 'feature/feed/feed_page.dart';
+import 'feature/profile/profile_app_bar.dart';
+import 'feature/profile/profile_page.dart';
+import 'feature/seach/seach_app_bar.dart';
+import 'feature/seach/seach_page.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mp_app/useful/languageBr.dart';
+import 'package:mp_app/useful/language_br.dart';
 
 class ProfilePage extends StatelessWidget {
 
