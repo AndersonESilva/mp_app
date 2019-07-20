@@ -7,7 +7,7 @@ class ApiClient {
 
   String _url = "https://api.github.com/";
 
-  seach(String query) async{
+  search(String query) async{
 
     http.Response response = await http.get(
       _url+"events"
