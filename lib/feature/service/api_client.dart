@@ -7,28 +7,27 @@ class ApiClient {
 
   String _url = "https://api.github.com/";
 
-  search(String query) async{
+  Future<List<Events>> search(String query) async{
 
     http.Response response = await http.get(
       _url+"events"
     );
 
-    return decode(response);
+    return _decode(response);
   }
 
-  decode(http.Response response) {
+  List<Events> _decode(http.Response response) {
 
     if(response.statusCode == 200){
 
       var decoded = json.decode(response.body);
 
-      List<Events> videos = decoded["items"].map<Events>(
+      return decoded.map<Events>(
         (map){
           return Events.fromJson(map);
         }
       ).toList();
 
-      return videos;
     }else {
       throw Exception("Failed to load videos");
     }

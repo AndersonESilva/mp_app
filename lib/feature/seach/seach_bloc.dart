@@ -3,18 +3,25 @@ import 'dart:async';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:mp_app/feature/service/api_client.dart';
 import 'package:mp_app/modal/events.dart';
+import 'package:rxdart/rxdart.dart';
 
-class SeachBloc implements BlocBase{
+class SearchBloc implements BlocBase{
 
   ApiClient apiClient;
 
   List<Events> events;
 
-  final StreamController<List<Events>> _eventsController = StreamController<List<Events>>();
+  final _eventsController = StreamController<List<Events>>();
   Stream get outEvents => _eventsController.stream;
 
-  final StreamController<String> _searchController = StreamController<String>();
+  final _searchController = StreamController<String>();
   Sink get inSearch => _searchController.sink;
+
+  SearchBloc(){
+    apiClient = ApiClient();
+
+    _searchController.stream.listen(_search);
+  }
 
   void _search(String search) async {
 
@@ -29,6 +36,25 @@ class SeachBloc implements BlocBase{
   void dispose() {
     _eventsController.close();
     _searchController.close();
+  }
+
+  @override
+  void addListener(listener) {
+    // TODO: implement addListener
+  }
+
+  @override
+  // TODO: implement hasListeners
+  bool get hasListeners => null;
+
+  @override
+  void notifyListeners() {
+    // TODO: implement notifyListeners
+  }
+
+  @override
+  void removeListener(listener) {
+    // TODO: implement removeListener
   }
 
 }
