@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
       currentIndex: _currentIndex,
-      selectedItemColor: Colors.black,
+      fixedColor: Colors.black,
       onTap: (index){
         _onTabTapped(index);
       },
