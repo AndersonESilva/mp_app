@@ -4,8 +4,6 @@ import 'feature/feed/feedAppBar.dart';
 import 'feature/feed/feedPage.dart';
 import 'feature/profile/profileAppBar.dart';
 import 'feature/profile/profilePage.dart';
-import 'feature/seach/seachAppBar.dart';
-import 'feature/seach/seachPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,7 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _children = [
     FeedPage(),
-    SeachPage(),
     ProfilePage()
   ];
 
@@ -57,10 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          title: Text(''),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
           title: Text(''),
         ),
         BottomNavigationBarItem(
@@ -89,10 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
           return FeedAppBar().build(context);
         }
       case 1:
-        {
-          return SeachAppBar().build(context);
-        }
-      case 2:
         {
           return ProfileAppBar().build(context);
         }
