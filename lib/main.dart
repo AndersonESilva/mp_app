@@ -1,97 +1,52 @@
 import 'package:flutter/material.dart';
-
-import 'feature/feed/feedAppBar.dart';
-import 'feature/feed/feedPage.dart';
-import 'feature/profile/profileAppBar.dart';
-import 'feature/profile/profilePage.dart';
+import 'package:mp_app/feature/home/homePage.dart';
+import 'package:mp_app/feature/login/loginPage.dart';
 
 void main() => runApp(MyApp());
+
+typedef SplashBuilderFn = Widget Function(BuildContext context);
+
+typedef LoginBuilderFn = Widget Function(BuildContext context);
+
+typedef HomeBuilderFn = Widget Function(BuildContext context);
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: "FLUTTER",
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainPage(title: 'Flutter Demo Home Page',),
+      home: MainPage(
+        splashBuilder: (context) {
+          return null;
+        },
+        loginBuilder: (context) {
+          return LoginPage();
+        },
+        homeBuilder: (context) {
+          return HomePage();
+        },
+      ),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
-  MainPage({Key key, this.title}) : super(key: key);
+  final SplashBuilderFn splashBuilder;
+  final LoginBuilderFn loginBuilder;
+  final HomeBuilderFn homeBuilder;
 
-  final String title;
+  MainPage({this.splashBuilder, this.loginBuilder, this.homeBuilder});
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-
-  final List<Widget> _children = [
-    FeedPage(),
-    ProfilePage()
-  ];
-
-  int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: getAppBar(),
-        body: RefreshIndicator(
-          onRefresh: _refresh,
-          child: _children[_currentIndex]
-        ),
-        bottomNavigationBar: _buildBottomNavigationBar());
+    return widget.homeBuilder(context);
   }
-
-  BottomNavigationBar _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          title: Text(''),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.dehaze),
-          title: Text(''),
-        ),
-      ],
-      currentIndex: _currentIndex,
-      fixedColor: Colors.black,
-      onTap: (index){
-        _onTabTapped(index);
-      },
-    );
-  }
-
-  Future<Null> _refresh() async {
-    await Future.delayed(Duration(seconds: 1));
-
-    return null;
-  }
-
-  AppBar getAppBar() {
-    switch (_currentIndex) {
-      case 0:
-        {
-          return FeedAppBar().build(context);
-        }
-      case 1:
-        {
-          return ProfileAppBar().build(context);
-        }
-    }
-  }
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
 }

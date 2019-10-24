@@ -5,26 +5,22 @@ import 'package:mp_app/feature/feed/feedAppBar.dart';
 import 'package:mp_app/feature/profile/profileAppBar.dart';
 import 'package:mp_app/feature/profile/profilePage.dart';
 
-class HomePage extends State{
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
-  BuildContext _context;
-
-  final List<Widget> _children = [
-    FeedPage(),
-    ProfilePage()
-  ];
+class _HomePageState extends State<HomePage> {
+  final List<Widget> _children = [FeedPage(), ProfilePage()];
 
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
     return Scaffold(
         appBar: _getAppBar(),
         body: RefreshIndicator(
-            onRefresh: _refresh,
-            child: _children[_currentIndex]
-        ),
+            onRefresh: _refresh, child: _children[_currentIndex]),
         bottomNavigationBar: _buildBottomNavigationBar());
   }
 
@@ -42,7 +38,7 @@ class HomePage extends State{
       ],
       currentIndex: _currentIndex,
       fixedColor: Colors.black,
-      onTap: (index){
+      onTap: (index) {
         _onTabTapped(index);
       },
     );
@@ -58,11 +54,11 @@ class HomePage extends State{
     switch (_currentIndex) {
       case 0:
         {
-          return FeedAppBar().build(_context);
+          return FeedAppBar().build(context);
         }
       case 1:
         {
-          return ProfileAppBar().build(_context);
+          return ProfileAppBar().build(context);
         }
     }
   }
@@ -72,5 +68,4 @@ class HomePage extends State{
       _currentIndex = index;
     });
   }
-  
 }
