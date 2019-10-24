@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mp_app/useful/languageBr.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -29,7 +31,6 @@ class ProfilePage extends StatelessWidget {
   Widget _buildProfileImage() {
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.only(top: 40),
       child: CircleAvatar(
           radius: 70,
           child: ClipOval(
@@ -94,28 +95,9 @@ class ProfilePage extends StatelessWidget {
                       LanguageBr.profilePage_text_event_name,
                       style: TextStyle(
                         color: Colors.grey[500],
-                      ),
+                      )
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: const EdgeInsets.only(top: 5, bottom: 5, left: 5),
-                    child: Text(
-                      LanguageBr.profilePage_text_event_local,
-                      style: TextStyle(
-                        color: Colors.grey[500],
-                      ),
-                    ),
-                  ),
-                  Container(
-                      alignment: Alignment.topLeft,
-                      margin: const EdgeInsets.only(bottom: 5, left: 5),
-                      child: Text(
-                        LanguageBr.profilePage_text_event_date,
-                        style: TextStyle(
-                          color: Colors.grey[500],
-                        ),
-                      )),
                 ],
               ))
         ],
