@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mp_app/feature/event/eventPage.dart';
 import 'package:mp_app/useful/languageBr.dart';
 
 class FeedPage extends StatelessWidget {
@@ -9,11 +10,11 @@ class FeedPage extends StatelessWidget {
     return ListView.builder(
         itemCount: _toDoList.length,
         itemBuilder: (contexto, index) {
-          return _buildItem(index);
+          return _buildItem(context, index);
         });
   }
 
-  Widget _buildItem(int index) {
+  Widget _buildItem(BuildContext context, int index) {
     return Container(
       padding: EdgeInsets.only(top: 10.0),
       decoration: BoxDecoration(
@@ -27,14 +28,7 @@ class FeedPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           _buildItemTitle(),
-          Container(
-              width: double.maxFinite,
-              height: 317.0,
-              padding: const EdgeInsets.only(top: 10),
-              child: Image.network(
-                "https://www.privilegebrasil.com//conteudo/anexo/BANNER4.jpg",
-                fit: BoxFit.fill,
-              )),
+          _buildItemImgEvent(context, index),
           _buildItemFooter(),
         ],
       ),
@@ -54,7 +48,7 @@ class FeedPage extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
-              Container(
+            Container(
               padding: const EdgeInsets.only(left: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,6 +72,22 @@ class FeedPage extends StatelessWidget {
             )
           ],
         ));
+  }
+
+  Widget _buildItemImgEvent(BuildContext context, int index) {
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => EventPage()));
+        },
+        child: Container(
+            width: double.maxFinite,
+            height: 317.0,
+            padding: const EdgeInsets.only(top: 10),
+            child: Image.network(
+              "https://www.privilegebrasil.com//conteudo/anexo/BANNER4.jpg",
+              fit: BoxFit.fill,
+            )));
   }
 
   Widget _buildItemFooter() {
