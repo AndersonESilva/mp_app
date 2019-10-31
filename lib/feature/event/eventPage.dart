@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'imgPage.dart';
+
 class EventPage extends StatelessWidget {
   List _toDoList = ["aaa", "sdsds", "fsadfa", "dwa", "dwa", "dwa", "dwa"];
 
@@ -22,7 +24,7 @@ class EventPage extends StatelessWidget {
                 ),
                 delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
-                  return _buildImages();
+                  return _buildImages(context);
                 }, childCount: _toDoList.length))
           ],
         ));
@@ -55,14 +57,19 @@ class EventPage extends StatelessWidget {
     );
   }
 
-  Widget _buildImages() {
-    return Card(
-        child: Container(
-            width: double.maxFinite,
-            height: 120.0,
-            child: Image.network(
-              'http://www.voicers.com.br/wp-content/uploads/2018/09/menos-30-fest-fortaleza-banner-1.jpg',
-              fit: BoxFit.fill,
-            )));
+  Widget _buildImages(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ImgPage()));
+        },
+        child: Card(
+            child: Container(
+                width: double.maxFinite,
+                height: 120.0,
+                child: Image.network(
+                  'http://www.voicers.com.br/wp-content/uploads/2018/09/menos-30-fest-fortaleza-banner-1.jpg',
+                  fit: BoxFit.fill,
+                ))));
   }
 }
