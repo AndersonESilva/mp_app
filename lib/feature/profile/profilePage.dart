@@ -30,33 +30,37 @@ class ProfilePage extends StatelessWidget {
 
   Widget _buildProfileImage() {
     return Container(
-      alignment: Alignment.center,
-      child: CircleAvatar(
-          radius: 70,
-          child: ClipOval(
-            child: SizedBox(
-              width: 140,
-              height: 140,
-              child: Image.network(
-                "https://abrilexame.files.wordpress.com/2018/10/capaprofile.jpg",
-                fit: BoxFit.fill,
-              ),
-            ),
-          )),
-    );
+        width: 140,
+        height: 140,
+        child: Container(
+          alignment: Alignment.center,
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 67,
+              child: ClipOval(
+                child: SizedBox(
+                  width: 126,
+                  height: 126,
+                  child: Image.network(
+                    "https://media.licdn.com/dms/image/C4E03AQHl4IZjw5Fn-w/profile-displayphoto-shrink_200_200/0?e=1580342400&v=beta&t=4bR6JkUb5p_gIucZ7nNKvLbZYPXkqkIxF6czUh5eWQM",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              )),
+          decoration:
+              BoxDecoration(color: Colors.grey[200], shape: BoxShape.circle),
+        ));
   }
 
   Widget _buildProfileData() {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 5),
       child: Column(
         children: <Widget>[
           Text(LanguageBr.profilePage_text_full_name,
-              style: TextStyle(fontSize: 25.0)),
+              style: TextStyle(fontSize: 18.0)),
           Text(LanguageBr.profilePage_text_local,
-              style: TextStyle(
-                color: Colors.grey[500],
-              )),
+              style: TextStyle(color: Colors.grey[500], fontSize: 14.0)),
         ],
       ),
     );
@@ -67,12 +71,12 @@ class ProfilePage extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: Colors.grey[500],
-              width: 0.8,
+              color: Colors.grey[300],
+              width: 2.4,
             ),
           ),
         ),
-        margin: const EdgeInsets.only(top: 35));
+        margin: const EdgeInsets.only(top: 15));
   }
 
   Widget _buildItems(int index, BuildContext context) {
@@ -92,17 +96,11 @@ class ProfilePage extends StatelessWidget {
                     fit: BoxFit.fill,
                   )),
               Container(
-                  child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(top: 8, bottom: 5),
-                    child: Text(LanguageBr.profilePage_text_event_name,
-                        style: TextStyle(
-                          color: Colors.grey[500],
-                        )),
-                  ),
-                ],
-              ))
+                margin: const EdgeInsets.only(top: 14, bottom: 4),
+                child: Text(LanguageBr.profilePage_text_event_name,
+                    style:
+                    TextStyle(color: Colors.grey[500], fontSize: 12.0)),
+              )
             ],
           ),
         ));
