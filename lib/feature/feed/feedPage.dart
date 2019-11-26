@@ -20,7 +20,7 @@ class FeedPage extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.grey[500],
+            color: Colors.grey[300],
             width: 2,
           ),
         ),
@@ -37,34 +37,31 @@ class FeedPage extends StatelessWidget {
 
   Widget _buildItemTitle() {
     return Container(
-        padding: const EdgeInsets.only(top: 8, left: 13),
+        padding: const EdgeInsets.only(top: 2, left: 13),
         child: Row(
           children: <Widget>[
             Container(
-              width: 55.0,
-              height: 55.0,
+              width: 40.0,
+              height: 40.0,
               child: Image.network(
                 "https://img.freepik.com/vetores-gratis/night-club-neon-sign_72287-520.jpg?size=338&ext=jpg",
                 fit: BoxFit.fill,
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(left: 6),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.only(top: 4, bottom: 6),
-                    child: Text(
-                      LanguageBr.feedPage_text_promoter_name,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                  ),
                   Text(
-                    LanguageBr.feedPage_text_promoter_local,
-                    style: TextStyle(
-                      color: Colors.grey[500],
+                    LanguageBr.feedPage_text_promoter_name,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(top: 2, bottom: 12),
+                    child: Text(
+                      LanguageBr.feedPage_text_promoter_local,
+                      style: TextStyle(color: Colors.grey[500], fontSize: 11),
                     ),
                   ),
                 ],
@@ -92,29 +89,28 @@ class FeedPage extends StatelessWidget {
 
   Widget _buildItemFooter() {
     return Container(
-        constraints: BoxConstraints(maxHeight: 55.0),
+        constraints: BoxConstraints(maxHeight: 45.0),
         alignment: Alignment.topRight,
-        margin: const EdgeInsets.only(bottom: 5.0),
         child: Stack(
           children: <Widget>[
             Positioned(
-              left: 13.0,
+              left: 10.0,
               top: 18.0,
               child: Text(
                 LanguageBr.feedPage_text_event_name,
-                style: TextStyle(color: Colors.black54, fontSize: 15),
+                style: TextStyle(color: Colors.black54, fontSize: 12),
               ),
             ),
             Positioned(
-              right: 37.0,
-              top: 3.0,
+              right: 32.0,
+              top: 0.0,
               child: IconButton(
-                  icon: Icon(Icons.remove_red_eye), onPressed: () {}),
+                  icon: Icon(Icons.remove_red_eye), iconSize: 18, onPressed: () {}),
             ),
             Positioned(
               right: 0.0,
-              top: 3.0,
-              child: IconButton(icon: Icon(Icons.share), onPressed: () {}),
+              top: 0.0,
+              child: IconButton(icon: Icon(Icons.send), iconSize: 18, onPressed: () {}),
             ),
           ],
         ));
