@@ -79,7 +79,7 @@ class FeedPage extends StatelessWidget {
         },
         child: Container(
             width: double.maxFinite,
-            height: 317.0,
+            height: 210.0,
             padding: const EdgeInsets.only(top: 10),
             child: Image.network(
               "https://www.privilegebrasil.com//conteudo/anexo/BANNER4.jpg",
@@ -95,22 +95,22 @@ class FeedPage extends StatelessWidget {
           children: <Widget>[
             Positioned(
               left: 10.0,
-              top: 18.0,
+              top: 14.0,
               child: Text(
                 LanguageBr.feedPage_text_event_name,
-                style: TextStyle(color: Colors.black54, fontSize: 12),
+                style: TextStyle(color: Colors.black, fontSize: 14),
               ),
             ),
             Positioned(
-              right: 32.0,
+              right: 34.0,
               top: 0.0,
               child: IconButton(
-                  icon: Icon(Icons.remove_red_eye), iconSize: 18, onPressed: () {}),
+                  icon: Icon(Icons.remove_red_eye), iconSize: 20, onPressed: () {}),
             ),
             Positioned(
               right: 0.0,
               top: 0.0,
-              child: IconButton(icon: Icon(Icons.send), iconSize: 18, onPressed: () {}),
+              child: IconButton(icon: Icon(Icons.send), iconSize: 20, onPressed: () {}),
             ),
           ],
         ));
