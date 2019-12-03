@@ -15,23 +15,25 @@ class FeedPage extends StatelessWidget {
   }
 
   Widget _buildItem(BuildContext context, int index) {
-    return Container(
-      padding: EdgeInsets.only(top: 10.0),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey[300],
-            width: 2,
+    return Card(
+      child: Container(
+        padding: EdgeInsets.only(top: 10.0),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.grey[300],
+              width: 2,
+            ),
           ),
         ),
-      ),
-      child: Column(
-        children: <Widget>[
-          _buildItemTitle(),
-          _buildItemImgEvent(context, index),
-          _buildItemFooter(),
-        ],
-      ),
+        child: Column(
+          children: <Widget>[
+            _buildItemTitle(),
+            _buildItemImgEvent(context, index),
+            _buildItemFooter(),
+          ],
+        ),
+      )
     );
   }
 
