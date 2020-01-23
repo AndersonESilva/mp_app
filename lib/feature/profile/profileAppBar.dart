@@ -10,7 +10,7 @@ class ProfileAppBar extends StatelessWidget{
       actions: <Widget>[
         IconButton(
           color: Colors.black,
-          icon: Icon(Icons.settings),
+          icon: Icon(Icons.close),
           onPressed: (){},
         )
       ],
