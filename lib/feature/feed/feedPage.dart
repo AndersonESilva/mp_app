@@ -104,16 +104,11 @@ class FeedPage extends StatelessWidget {
               ),
             ),
             Positioned(
-              right: 34.0,
+              right: 0.0,
               top: 0.0,
               child: IconButton(
                   icon: Icon(Icons.remove_red_eye), iconSize: 20, onPressed: () {}),
-            ),
-            Positioned(
-              right: 0.0,
-              top: 0.0,
-              child: IconButton(icon: Icon(Icons.send), iconSize: 20, onPressed: () {}),
-            ),
+            )
           ],
         ));
   }
