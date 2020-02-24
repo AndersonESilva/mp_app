@@ -12,12 +12,6 @@ class PermissionsManager{
     return false;
   }
 
-  Future<bool> hasPermission(PermissionGroup permission) async {
-    var permissionStatus =
-    await _permissionHandler.checkPermissionStatus(permission);
-    return permissionStatus == PermissionStatus.granted;
-  }
-
   Future<bool> requestStoragePermission({Function onPermissionDenied}) async {
     var granted = await _requestPermission(PermissionGroup.storage);
     if (!granted) {
@@ -32,5 +26,15 @@ class PermissionsManager{
       onPermissionDenied();
     }
     return granted;
+  }
+
+  Future<bool> _hasPermission(PermissionGroup permission) async {
+    var permissionStatus =
+    await _permissionHandler.checkPermissionStatus(permission);
+    return permissionStatus == PermissionStatus.granted;
+  }
+
+  Future<bool> hasStoragePermission() async {
+    return _hasPermission(PermissionGroup.storage);
   }
 }
