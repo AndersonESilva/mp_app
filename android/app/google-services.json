@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:280576571769:android:3b2bc0e6987f850f9ed7a8",
+        "mobilesdk_app_id": "1:280576571769:android:5ddfea1968937f5a9ed7a8",
         "android_client_info": {
           "package_name": "com.bena.mp_app"
         }
@@ -30,6 +30,13 @@
             {
               "client_id": "280576571769-mvtn776rs0phivtsnepdalsi9nnfoh1c.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "280576571769-jvggki0ttrs86evnldk1pd4guib9coa3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bena.mpApp"
+              }
             }
           ]
         }
