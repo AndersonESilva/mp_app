@@ -1,42 +1,35 @@
 {
   "project_info": {
-    "project_number": "280576571769",
-    "firebase_url": "https://momp-c954f.firebaseio.com",
-    "project_id": "momp-c954f",
-    "storage_bucket": "momp-c954f.appspot.com"
+    "project_number": "299895344837",
+    "firebase_url": "https://momp-15684.firebaseio.com",
+    "project_id": "momp-15684",
+    "storage_bucket": "momp-15684.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:280576571769:android:5ddfea1968937f5a9ed7a8",
+        "mobilesdk_app_id": "1:299895344837:android:7e0f4022a569a6fd84aaac",
         "android_client_info": {
           "package_name": "com.bena.mp_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "280576571769-mvtn776rs0phivtsnepdalsi9nnfoh1c.apps.googleusercontent.com",
+          "client_id": "299895344837-p9l8bisa2db30br88m2cqj6v3rnqeqd8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBI_ZAUnrn9UbLYGe5SJ-5kQGIitgV6m58"
+          "current_key": "AIzaSyBrDNpe1_IJtnbZbZOjKdvqBMh1ggcyKGo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "280576571769-mvtn776rs0phivtsnepdalsi9nnfoh1c.apps.googleusercontent.com",
+              "client_id": "299895344837-p9l8bisa2db30br88m2cqj6v3rnqeqd8.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "280576571769-jvggki0ttrs86evnldk1pd4guib9coa3.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.bena.mpApp"
-              }
             }
           ]
         }
