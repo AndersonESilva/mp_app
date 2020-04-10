@@ -12,6 +12,7 @@ class LoginPage extends StatefulWidget  {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   bool isLogged = false;
 
   Future<FirebaseUser> _loginWithFacebook() async {
@@ -19,7 +20,24 @@ class _LoginPageState extends State<LoginPage> {
     var result = await facebookLogin.logIn(['email']);
 
     debugPrint(result.status.toString());
+
+    if (result.status == FacebookLoginStatus.loggedIn) {
+      final AuthCredential credential = FacebookAuthProvider.getCredential(
+        accessToken: result.accessToken.token
+      );
+
+      final FirebaseUser user =
+      (await _auth.signInWithCredential(credential)).user;
+      print("signed in " + user.displayName);
+      return user;
+    }
+
     return null;
+  }
+
+  void _logInFacebook(){
+    _loginWithFacebook().then((value) => print(value))
+        .catchError((onError) => print(onError));
   }
 
   @override
@@ -29,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
         ? MaterialButton(
           color: Colors.blue,
           child: Text('LOGIN'),
-        ) :FacebookSignInButton(onPressed:_loginWithFacebook)
+        ) :FacebookSignInButton(onPressed:_logInFacebook)
     );
   }
 }

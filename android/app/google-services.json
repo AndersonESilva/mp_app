@@ -30,6 +30,13 @@
             {
               "client_id": "299895344837-p9l8bisa2db30br88m2cqj6v3rnqeqd8.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "299895344837-k1tjoml8gini7ta829c65i4q4353ivp5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bena.mpApp"
+              }
             }
           ]
         }
