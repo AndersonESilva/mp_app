@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget  {
 
@@ -35,8 +36,35 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
+  Future<FirebaseUser> _loginWithGoogle() async {
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: ['email']
+    );
+
+    final GoogleSignInAccount account = await _googleSignIn.signIn();
+    if(account.id != null){
+      final GoogleSignInAuthentication authentication = await account.authentication;
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+          idToken: authentication.idToken,
+          accessToken: authentication.accessToken
+      );
+
+      final FirebaseUser user =
+          (await _auth.signInWithCredential(credential)).user;
+      print("signed in " + user.displayName);
+      return user;
+    } else{
+      return null;
+    }
+  }
+
   void _logInFacebook(){
     _loginWithFacebook().then((value) => print(value))
+        .catchError((onError) => print(onError));
+  }
+
+  void _logInGoogle(){
+    _loginWithGoogle().then((value) => print(value))
         .catchError((onError) => print(onError));
   }
 
@@ -47,7 +75,13 @@ class _LoginPageState extends State<LoginPage> {
         ? MaterialButton(
           color: Colors.blue,
           child: Text('LOGIN'),
-        ) :FacebookSignInButton(onPressed:_logInFacebook)
+        ) : Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          FacebookSignInButton(onPressed:_logInFacebook),
+          GoogleSignInButton(onPressed: _logInGoogle)
+        ],
+      )
     );
   }
 }

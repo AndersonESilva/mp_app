@@ -13,6 +13,9 @@ description: MVP from the idea about events
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
+module:
+  androidX: true
+
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
@@ -29,6 +32,7 @@ dependencies:
   firebase_auth: ^0.15.5+3
   flutter_auth_buttons: ^0.8.0
   flutter_facebook_login: ^3.0.0
+  google_sign_in: ^4.4.1
 
 dev_dependencies:
   flutter_test:
