@@ -13,8 +13,10 @@ class LoginPage extends StatefulWidget  {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = new GlobalKey<FormState>();
   FirebaseAuth _auth = FirebaseAuth.instance;
-  bool isLogged = false;
+  bool _isLoading = false;
+  String _errorMessage = "";
 
   Future<FirebaseUser> _loginWithFacebook() async {
     var facebookLogin = new FacebookLogin();
@@ -60,28 +62,72 @@ class _LoginPageState extends State<LoginPage> {
 
   void _logInFacebook(){
     _loginWithFacebook().then((value) => print(value))
-        .catchError((onError) => print(onError));
+        .catchError((onError) => _setErro(onError.toString()));
   }
 
   void _logInGoogle(){
     _loginWithGoogle().then((value) => print(value))
-        .catchError((onError) => print(onError));
+        .catchError((onError) => _setErro(onError.toString()));
+  }
+
+  void _setErro(String onError){
+    setState(() {
+      _errorMessage = onError;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: isLogged
-        ? MaterialButton(
-          color: Colors.blue,
-          child: Text('LOGIN'),
-        ) : Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      body: Stack(
         children: <Widget>[
-          FacebookSignInButton(onPressed:_logInFacebook),
-          GoogleSignInButton(onPressed: _logInGoogle)
+          showForm(),
+          showCircularProgress(),
         ],
-      )
+      ),
     );
+  }
+
+  showForm() {
+    return new Container(
+        padding: EdgeInsets.all(16.0),
+        child: new Form(
+          key: _formKey,
+          child: new ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              FacebookSignInButton(onPressed:_logInFacebook),
+              GoogleSignInButton(onPressed: _logInGoogle),
+              showErrorMessage(),
+            ],
+          ),
+        ));
+  }
+
+  showCircularProgress() {
+    if (_isLoading) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return Container(
+      height: 0.0,
+      width: 0.0,
+    );
+  }
+
+  Widget showErrorMessage() {
+    if (_errorMessage.length > 0 && _errorMessage != null) {
+      return new Text(
+        _errorMessage,
+        style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.red,
+            height: 1.0,
+            fontWeight: FontWeight.w300),
+      );
+    } else {
+      return new Container(
+        height: 0.0,
+      );
+    }
   }
 }
