@@ -13,7 +13,6 @@ class LoginPage extends StatefulWidget  {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = new GlobalKey<FormState>();
   FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isLoading = false;
   String _errorMessage = "";
@@ -76,9 +75,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  //Color.fromRGBO(162, 34, 225, 100)
-  //42, 45, 48, 100
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,27 +122,6 @@ class _LoginPageState extends State<LoginPage> {
           child: Image.asset('images/momplog.png'),
         ),
       ),
-    );
-  }
-
-  Widget showSocialNetwork(){
-    return Column(
-      children: <Widget>[
-        FlatButton(
-          child: Text('Sign in with Facebook',
-              style: TextStyle(
-                  fontSize: 22.0,
-                  color: Colors.white)),
-          onPressed:_logInFacebook,
-        ),
-        FlatButton(
-          child: Text('Sign in with Google',
-              style: TextStyle(
-                  fontSize: 22.0,
-                  color: Colors.white)),
-          onPressed:_logInGoogle,
-        )
-      ],
     );
   }
 
