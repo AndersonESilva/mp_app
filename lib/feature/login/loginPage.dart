@@ -76,9 +76,13 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  //Color.fromRGBO(162, 34, 225, 100)
+  //42, 45, 48, 100
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(42, 43, 47, 100),
       body: Stack(
         children: <Widget>[
           showForm(),
@@ -91,26 +95,79 @@ class _LoginPageState extends State<LoginPage> {
   showForm() {
     return new Container(
         padding: EdgeInsets.all(16.0),
-        child: new Form(
-          key: _formKey,
-          child: new ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              FacebookSignInButton(onPressed:_logInFacebook),
-              GoogleSignInButton(onPressed: _logInGoogle),
-              showErrorMessage(),
-            ],
-          ),
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            showLogo(),
+            showSocialButton(),
+            showErrorMessage(),
+          ],
         ));
   }
 
-  showCircularProgress() {
+  Widget showCircularProgress() {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
     }
     return Container(
       height: 0.0,
       width: 0.0,
+    );
+  }
+
+  Widget showLogo(){
+    return Hero(
+      tag: 'hero',
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
+        child: CircleAvatar(
+          backgroundColor: Colors.transparent,
+          radius: 80.0,
+          child: Image.asset('images/momplog.png'),
+        ),
+      ),
+    );
+  }
+
+  Widget showSocialNetwork(){
+    return Column(
+      children: <Widget>[
+        FlatButton(
+          child: Text('Sign in with Facebook',
+              style: TextStyle(
+                  fontSize: 22.0,
+                  color: Colors.white)),
+          onPressed:_logInFacebook,
+        ),
+        FlatButton(
+          child: Text('Sign in with Google',
+              style: TextStyle(
+                  fontSize: 22.0,
+                  color: Colors.white)),
+          onPressed:_logInGoogle,
+        )
+      ],
+    );
+  }
+
+  Widget showSocialButton(){
+    return Column(
+      children: <Widget>[
+        FacebookSignInButton(
+            text: 'Sign in with Facebook',
+            borderRadius: 10.0,
+            onPressed:_logInFacebook
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+          child: GoogleSignInButton(
+            text: 'Sign in with Google     ',
+            onPressed: _logInGoogle,
+            borderRadius: 10.0,
+            darkMode: true,
+          ),
+        )
+      ],
     );
   }
 
