@@ -7,12 +7,6 @@ import 'manager/authenticationManager.dart';
 
 void main() => runApp(MyApp());
 
-typedef SplashBuilderFn = Widget Function(BuildContext context);
-
-typedef LoginBuilderFn = Widget Function(BuildContext context);
-
-typedef HomeBuilderFn = Widget Function(BuildContext context);
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -53,24 +47,6 @@ class _MainPageState extends State<MainPage> {
         user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
       });
     });
-
-    void loginCallback() {
-      widget.auth.getCurrentUser().then((user) {
-        setState(() {
-          _userId = user.uid.toString();
-        });
-      });
-      setState(() {
-        authStatus = AuthStatus.LOGGED_IN;
-      });
-    }
-
-    void logoutCallback() {
-      setState(() {
-        authStatus = AuthStatus.NOT_LOGGED_IN;
-        _userId = "";
-      });
-    }
   }
 
   @override
@@ -78,16 +54,42 @@ class _MainPageState extends State<MainPage> {
     switch(authStatus){
       case AuthStatus.LOGGED_IN:
         if(_userId.length > 0 && _userId != null){
-          return HomePage();
+          return HomePage(
+            userId: _userId,
+            auth: widget.auth,
+            logoutCallback: logoutCallback,
+          );
         }else{
           return SplashPage();
         }
         break;
       case AuthStatus.NOT_LOGGED_IN:
-        return LoginPage();
+        return LoginPage(
+            auth: widget.auth,
+            loginCallback: loginCallback,
+        );
         break;
       default:
         return SplashPage();
     }
   }
+
+  void loginCallback() {
+    widget.auth.getCurrentUser().then((user) {
+      setState(() {
+        _userId = user.uid.toString();
+      });
+    });
+    setState(() {
+      authStatus = AuthStatus.LOGGED_IN;
+    });
+  }
+
+  void logoutCallback() {
+    setState(() {
+      authStatus = AuthStatus.NOT_LOGGED_IN;
+      _userId = "";
+    });
+  }
+
 }

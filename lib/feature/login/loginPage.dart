@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mp_app/manager/authenticationManager.dart';
 
 class LoginPage extends StatefulWidget  {
+  LoginPage({this.auth, this.loginCallback});
+
+  final BaseAuth auth;
+  final VoidCallback loginCallback;
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -13,64 +15,39 @@ class LoginPage extends StatefulWidget  {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isLoading = false;
   String _errorMessage = "";
 
-  Future<FirebaseUser> _loginWithFacebook() async {
-    var facebookLogin = new FacebookLogin();
-    var result = await facebookLogin.logIn(['email']);
-
-    debugPrint(result.status.toString());
-
-    if (result.status == FacebookLoginStatus.loggedIn) {
-      final AuthCredential credential = FacebookAuthProvider.getCredential(
-        accessToken: result.accessToken.token
-      );
-
-      final FirebaseUser user =
-      (await _auth.signInWithCredential(credential)).user;
-      print("signed in " + user.displayName);
-      return user;
-    }
-
-    return null;
-  }
-
-  Future<FirebaseUser> _loginWithGoogle() async {
-    GoogleSignIn _googleSignIn = GoogleSignIn(
-      scopes: ['email']
-    );
-
-    final GoogleSignInAccount account = await _googleSignIn.signIn();
-    if(account.id != null){
-      final GoogleSignInAuthentication authentication = await account.authentication;
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
-          idToken: authentication.idToken,
-          accessToken: authentication.accessToken
-      );
-
-      final FirebaseUser user =
-          (await _auth.signInWithCredential(credential)).user;
-      print("signed in " + user.displayName);
-      return user;
-    } else{
-      return null;
-    }
-  }
 
   void _logInFacebook(){
-    _loginWithFacebook().then((value) => print(value))
+    setState(() {
+      _isLoading = true;
+      _errorMessage = "";
+    });
+    widget.auth.signWithFacebook().then((String userId) => _logInSuccess(userId))
         .catchError((onError) => _setErro(onError.toString()));
   }
 
   void _logInGoogle(){
-    _loginWithGoogle().then((value) => print(value))
+    setState(() {
+      _isLoading = true;
+    });
+    widget.auth.signWithGoogle().then((String userId) => _logInSuccess(userId))
         .catchError((onError) => _setErro(onError.toString()));
+  }
+
+  void _logInSuccess(String userId){
+    setState(() {
+      _isLoading = false;
+    });
+    if (userId.length > 0 && userId != null) {
+      widget.loginCallback();
+    }
   }
 
   void _setErro(String onError){
     setState(() {
+      _isLoading = false;
       _errorMessage = onError;
     });
   }
@@ -98,7 +75,8 @@ class _LoginPageState extends State<LoginPage> {
             showSocialButton(),
             showErrorMessage(),
           ],
-        ));
+        )
+    );
   }
 
   Widget showCircularProgress() {

@@ -1,5 +1,9 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 enum AuthStatus {
   NOT_DETERMINED,
@@ -19,6 +23,10 @@ abstract class BaseAuth {
   Future<void> signOut();
 
   Future<bool> isEmailVerified();
+
+  Future<String> signWithGoogle();
+
+  Future<String> signWithFacebook();
 }
 
 class Auth implements BaseAuth {
@@ -56,4 +64,47 @@ class Auth implements BaseAuth {
     FirebaseUser user = await _firebaseAuth.currentUser();
     return user.isEmailVerified;
   }
+
+  Future<String> signWithGoogle() async {
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+        scopes: ['email']
+    );
+
+    final GoogleSignInAccount account = await _googleSignIn.signIn();
+    if(account.id != null){
+      final GoogleSignInAuthentication authentication = await account.authentication;
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+          idToken: authentication.idToken,
+          accessToken: authentication.accessToken
+      );
+
+      final FirebaseUser user =
+          (await _firebaseAuth.signInWithCredential(credential)).user;
+      print("signed in " + user.displayName);
+      return user.uid;
+    } else{
+      return null;
+    }
+  }
+
+  Future<String> signWithFacebook() async {
+    var facebookLogin = new FacebookLogin();
+    var result = await facebookLogin.logIn(['email']);
+
+    debugPrint(result.status.toString());
+
+    if (result.status == FacebookLoginStatus.loggedIn) {
+      final AuthCredential credential = FacebookAuthProvider.getCredential(
+          accessToken: result.accessToken.token
+      );
+
+      final FirebaseUser user =
+          (await _firebaseAuth.signInWithCredential(credential)).user;
+      print("signed in " + user.displayName);
+      return user.uid;
+    }
+
+    return null;
+  }
+
 }
