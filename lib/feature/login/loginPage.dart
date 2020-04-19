@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
       _errorMessage = "";
     });
     widget.auth.signWithFacebook().then((String userId) => _logInSuccess(userId))
-        .catchError((onError) => _setErro(onError.toString()));
+        .catchError((onError) => _setErro(onError));
   }
 
   void _logInGoogle(){
@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = true;
     });
     widget.auth.signWithGoogle().then((String userId) => _logInSuccess(userId))
-        .catchError((onError) => _setErro(onError.toString()));
+        .catchError((onError) => _setErro(onError));
   }
 
   void _logInSuccess(String userId){
@@ -45,10 +45,10 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _setErro(String onError){
+  void _setErro(Error onError){
     setState(() {
       _isLoading = false;
-      _errorMessage = onError;
+      _errorMessage = onError.toString();
     });
   }
 
@@ -73,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             showLogo(),
             showSocialButton(),
-            showErrorMessage(),
           ],
         )
     );
@@ -124,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  //Tool of development
   Widget showErrorMessage() {
     if (_errorMessage.length > 0 && _errorMessage != null) {
       return new Text(
