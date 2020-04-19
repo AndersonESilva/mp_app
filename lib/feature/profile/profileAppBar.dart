@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ProfileAppBar extends StatelessWidget{
+  ProfileAppBar(this.logoutCallback);
+
+  final VoidCallback logoutCallback;
 
   @override
   AppBar build(BuildContext context) {
@@ -11,7 +14,9 @@ class ProfileAppBar extends StatelessWidget{
         IconButton(
           color: Colors.black,
           icon: Icon(Icons.close),
-          onPressed: (){},
+          onPressed: (){
+            this.logoutCallback();
+          },
         )
       ],
     );

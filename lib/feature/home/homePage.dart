@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
         }
       case 1:
         {
-          return ProfileAppBar().build(context);
+          return ProfileAppBar(widget.logoutCallback).build(context);
         }
     }
   }
