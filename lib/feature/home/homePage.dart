@@ -6,11 +6,9 @@ import 'package:mp_app/feature/profile/profilePage.dart';
 import 'package:mp_app/manager/authenticationManager.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({this.userId, this.auth, this.logoutCallback});
+  HomePage({this.userId});
 
   final String userId;
-  final BaseAuth auth;
-  final VoidCallback logoutCallback;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -64,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         }
       case 1:
         {
-          return ProfileAppBar(widget.logoutCallback).build(context);
+          return ProfileAppBar(null).build(context);
         }
     }
   }

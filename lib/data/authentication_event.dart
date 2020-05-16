@@ -1,10 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-enum AuthEvent {
-  FACEBOOK,
-  GOOGLE
-}
-
 abstract class AuthenticationEvent extends Equatable {
   @override
   List<Object> get props => [];

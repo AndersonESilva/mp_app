@@ -1,11 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-enum AuthStatus {
-  NOT_DETERMINED,
-  NOT_LOGGED_IN,
-  LOGGED_IN,
-}
-
 abstract class AuthenticationState extends Equatable {
   const AuthenticationState();
 

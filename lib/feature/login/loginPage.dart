@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
-import 'package:mp_app/manager/authenticationManager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mp_app/data/authentication_event.dart';
+
+import 'authentication_bloc.dart';
 
 class LoginPage extends StatefulWidget  {
-  LoginPage({this.auth, this.loginCallback});
-
-  final BaseAuth auth;
-  final VoidCallback loginCallback;
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -18,54 +17,20 @@ class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
   String _errorMessage = "";
 
-
-  void _logInFacebook(){
-    setState(() {
-      _isLoading = true;
-      _errorMessage = "";
-    });
-    widget.auth.signWithFacebook().then((String userId) => _logInSuccess(userId))
-        .catchError((onError) => _setErro(onError));
-  }
-
-  void _logInGoogle(){
-    setState(() {
-      _isLoading = true;
-    });
-    widget.auth.signWithGoogle().then((String userId) => _logInSuccess(userId))
-        .catchError((onError) => _setErro(onError));
-  }
-
-  void _logInSuccess(String userId){
-    setState(() {
-      _isLoading = false;
-    });
-    if (userId.length > 0 && userId != null) {
-      widget.loginCallback();
-    }
-  }
-
-  void _setErro(Error onError){
-    setState(() {
-      _isLoading = false;
-      _errorMessage = onError.toString();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff2B2B2B),
       body: Stack(
         children: <Widget>[
-          showForm(),
+          showBody(),
           showCircularProgress(),
         ],
       ),
     );
   }
 
-  showForm() {
+  showBody() {
     return new Container(
         padding: EdgeInsets.all(16.0),
         child: ListView(
@@ -103,23 +68,50 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget showSocialButton(){
-    return Column(
-      children: <Widget>[
-        FacebookSignInButton(
-            text: 'Sign in with Facebook',
-            borderRadius: 10.0,
-            onPressed:_logInFacebook
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
-          child: GoogleSignInButton(
-            text: 'Sign in with Google     ',
-            onPressed: _logInGoogle,
-            borderRadius: 10.0,
-            darkMode: true,
-          ),
-        )
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          _facebookLoginButton(),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: _googleLoginButton(),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _facebookLoginButton(){
+    return RaisedButton.icon(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      icon: Icon(FontAwesomeIcons.facebook, color: Colors.white),
+      onPressed: () {
+        BlocProvider.of<AuthenticationBloc>(context).add(
+          LoggedInFacebook(),
+        );
+      },
+      label: Text('Sign in with Facebook', style: TextStyle(color: Colors.white)),
+      color: Colors.redAccent,
+    );
+  }
+
+  Widget _googleLoginButton(){
+    return RaisedButton.icon(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      icon: Icon(FontAwesomeIcons.google, color: Colors.white),
+      onPressed: () {
+        BlocProvider.of<AuthenticationBloc>(context).add(
+          LoggedInGoogle(),
+        );
+      },
+      label: Text('Sign in with Google', style: TextStyle(color: Colors.white)),
+      color: Colors.redAccent,
     );
   }
 
