@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mp_app/feature/feed/feedAppBar.dart';
-import 'package:mp_app/feature/feed/feedPage.dart';
-import 'package:mp_app/feature/profile/profileAppBar.dart';
-import 'package:mp_app/feature/profile/profilePage.dart';
-import 'package:mp_app/manager/authenticationManager.dart';
+import 'package:mp_app/feature/feed/feed_app_bar.dart';
+import 'package:mp_app/feature/feed/feed_page.dart';
+import 'package:mp_app/feature/profile/profile_app_bar.dart';
+import 'package:mp_app/feature/profile/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({this.userId});

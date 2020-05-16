@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mp_app/feature/event/eventPage.dart';
+import 'package:mp_app/feature/event/event_page.dart';
 import 'package:mp_app/useful/languageBr.dart';
 
 class ProfilePage extends StatelessWidget {

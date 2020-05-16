@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mp_app/data/authentication_event.dart';
+import 'package:mp_app/di/event/authentication_event.dart';
 
-import 'authentication_bloc.dart';
+import '../../bloc/authentication_bloc.dart';
 
 class LoginPage extends StatefulWidget  {
 

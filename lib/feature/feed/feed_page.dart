@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mp_app/feature/event/eventPage.dart';
+import 'package:mp_app/feature/event/event_page.dart';
 import 'package:mp_app/useful/languageBr.dart';
 
 class FeedPage extends StatelessWidget {

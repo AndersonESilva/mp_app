@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:mp_app/data/model/eventResponse.dart';
+import 'package:mp_app/data/model/event_response.dart';
 
 class FeedRepository{
 

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'imgPage.dart';
+import 'image_page.dart';
 
 class EventPage extends StatelessWidget {
   List _toDoList = ["aaa", "sdsds", "fsadfa", "dwa", "dwa", "dwa", "dwa"];
@@ -61,7 +61,7 @@ class EventPage extends StatelessWidget {
     return GestureDetector(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ImgPage()));
+              context, MaterialPageRoute(builder: (context) => ImagePage()));
         },
         child: Card(
             child: Container(

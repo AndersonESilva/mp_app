@@ -5,13 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:image_downloader/image_downloader.dart';
 import 'package:mp_app/manager/permissionsManager.dart';
 
-class ImgPage extends StatefulWidget {
+class ImagePage extends StatefulWidget {
 
   @override
-  _ImgPageState createState() => _ImgPageState();
+  _ImagePageState createState() => _ImagePageState();
 }
 
-class _ImgPageState extends State<ImgPage> {
+class _ImagePageState extends State<ImagePage> {
   final imgUrl = "https://www.lupadigital.info/wp-content/uploads/2018/05/imagens-gratis.jpg";
   bool downloading = false;
   var progressString = "";
