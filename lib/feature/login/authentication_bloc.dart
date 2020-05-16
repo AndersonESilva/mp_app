@@ -2,11 +2,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mp_app/data/authentication_event.dart';
 import 'package:mp_app/data/authentication_state.dart';
-import 'package:mp_app/manager/authenticationManager.dart';
+import 'package:mp_app/service/authentication_repository.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
 
-  final BaseAuth _auth = Auth();
+  final _auth = AuthenticationRepository();
 
   @override
   get initialState => Uninitialized();
