@@ -3,10 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mp_app/data/model/user.dart';
+import 'package:mp_app/service/main_service.dart';
 
 class AuthenticationRepository{
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final MainService _mainService = MainService();
 
   Future<String> signIn(String email, String password) async {
     AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
@@ -57,7 +60,10 @@ class AuthenticationRepository{
       final FirebaseUser user =
           (await _firebaseAuth.signInWithCredential(credential)).user;
       print("signed in " + user.displayName);
-      return user.uid;
+
+      var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
+
+      return userService.userID;
     } else{
       return null;
     }
@@ -77,10 +83,15 @@ class AuthenticationRepository{
       final FirebaseUser user =
           (await _firebaseAuth.signInWithCredential(credential)).user;
       print("signed in " + user.displayName);
-      return user.uid;
+
+      var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
+
+      return userService.userID;
     }
 
     return null;
   }
+
+
 
 }
