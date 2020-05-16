@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mp_app/data/authentication_event.dart';
 import 'package:mp_app/data/authentication_state.dart';
@@ -18,9 +17,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     } else if (event is LoggedInFacebook){
         yield* _mapLoggedInFacebookToState();
     } else if (event is LoggedInGoogle){
-
+      yield* _mapLoggedInGoogleToState();
     } else if (event is LoggedOut){
-
+      yield* _mapLoggedOutToState();
     }
   }
 
@@ -50,4 +49,20 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       yield Error(_userId);
     }
   }
+
+  Stream<AuthenticationState> _mapLoggedInGoogleToState() async* {
+    final _userId = await _auth.signWithGoogle();
+
+    if(_userId.length > 0 && _userId != null){
+      yield Authenticated(_userId);
+    }else{
+      yield Error(_userId);
+    }
+  }
+
+  Stream<AuthenticationState> _mapLoggedOutToState() async* {
+    yield Unauthenticated();
+    _auth.signOut();
+  }
+
 }
