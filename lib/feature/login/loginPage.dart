@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mp_app/di/event/authentication_event.dart';
+import 'package:mp_app/di/state/authentication_state.dart';
 
 import '../../bloc/authentication_bloc.dart';
 
@@ -38,6 +39,24 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             showLogo(),
             showSocialButton(),
+            BlocBuilder<AuthenticationBloc, AuthenticationState>(
+              builder: (context, state){
+                // ignore: missing_return
+                if(state is AuthenticationError){
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Text(
+                      state.messageError,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
+                }else{
+                  return Container();
+                }
+              }
+              ),
           ],
         )
     );

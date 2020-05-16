@@ -32,7 +32,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       if(_userId.length > 0 && _userId != null){
         yield Authenticated(_userId);
       }else{
-        yield Error(_userId);
+        yield Unauthenticated();
       }
 
     }else{
@@ -41,22 +41,20 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   }
 
   Stream<AuthenticationState> _mapLoggedInFacebookToState() async* {
-    final _userId = await _auth.signWithFacebook();
-
-    if(_userId.length > 0 && _userId != null){
+    try{
+      final _userId = await _auth.signWithFacebook();
       yield Authenticated(_userId);
-    }else{
-      yield Error(_userId);
+    }catch(Error){
+      yield AuthenticationError(Error.toString());
     }
   }
 
   Stream<AuthenticationState> _mapLoggedInGoogleToState() async* {
-    final _userId = await _auth.signWithGoogle();
-
-    if(_userId.length > 0 && _userId != null){
+    try{
+      final _userId = await _auth.signWithGoogle();
       yield Authenticated(_userId);
-    }else{
-      yield Error(_userId);
+    }catch(Error){
+      yield AuthenticationError(Error.toString());
     }
   }
 

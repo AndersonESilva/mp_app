@@ -23,11 +23,11 @@ class Authenticated extends AuthenticationState {
 
 class Unauthenticated extends AuthenticationState {}
 
-class Error extends AuthenticationState {
+class AuthenticationError extends AuthenticationState {
 
   final String messageError;
 
-  const Error(this.messageError);
+  const AuthenticationError(this.messageError);
 
   @override
   List<Object> get props => [messageError];
