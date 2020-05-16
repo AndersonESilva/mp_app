@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mp_app/data/authentication_event.dart';
 import 'package:mp_app/feature/home/homePage.dart';
 import 'package:mp_app/feature/login/loginPage.dart';
 
 import 'data/authentication_state.dart';
+import 'feature/login/authentication_bloc.dart';
 import 'feature/splash/splashPage.dart';
 import 'manager/authenticationManager.dart';
+import 'manager/bloc_delegate.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  BlocSupervisor.delegate = SimpleBlocDelegate();
+  runApp(
+    BlocProvider(
+      create: (context) => AuthenticationBloc()
+      ..add(AppStarted()),
+      child: MyApp(),
+    )
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
