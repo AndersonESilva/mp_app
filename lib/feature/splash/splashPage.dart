@@ -15,7 +15,7 @@ class _SplashPageState extends State<SplashPage>{
     return Container(
       decoration: BoxDecoration(color: Color.fromRGBO(42, 43, 47, 100)),
       child: Center(
-        child: Image.asset('images/momplog.png'),
+        child: Image.asset('images/momplogo.png'),
       ),
     );
   }

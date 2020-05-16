@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mp_app/feature/home/homePage.dart';
 import 'package:mp_app/feature/login/loginPage.dart';
 
+import 'data/authentication_state.dart';
 import 'feature/splash/splashPage.dart';
 import 'manager/authenticationManager.dart';
 

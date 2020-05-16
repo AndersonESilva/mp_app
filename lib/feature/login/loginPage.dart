@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(42, 43, 47, 100),
+      backgroundColor: Color(0xff2B2B2B),
       body: Stack(
         children: <Widget>[
           showForm(),
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
         child: CircleAvatar(
           backgroundColor: Colors.transparent,
           radius: 80.0,
-          child: Image.asset('images/momplog.png'),
+          child: Image.asset('images/momplogo.png'),
         ),
       ),
     );
