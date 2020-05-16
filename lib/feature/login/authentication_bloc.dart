@@ -16,7 +16,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     if(event is AppStarted){
         yield* _mapAppStartedToState();
     } else if (event is LoggedInFacebook){
-
+        yield* _mapLoggedInFacebookToState();
     } else if (event is LoggedInGoogle){
 
     } else if (event is LoggedOut){
@@ -38,6 +38,16 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
     }else{
       yield Unauthenticated();
+    }
+  }
+
+  Stream<AuthenticationState> _mapLoggedInFacebookToState() async* {
+    final _userId = await _auth.signWithFacebook();
+
+    if(_userId.length > 0 && _userId != null){
+      yield Authenticated(_userId);
+    }else{
+      yield Error(_userId);
     }
   }
 }
