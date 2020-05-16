@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mp_app/feature/event/event_page.dart';
-import 'package:mp_app/useful/languageBr.dart';
+import 'package:mp_app/value/strings.dart';
 
 class ProfilePage extends StatelessWidget {
   List _toDoList = ["aaa", "sdsds", "fsadfa", "dwa", "dwa", "dwa", "dwa"];
@@ -57,9 +57,9 @@ class ProfilePage extends StatelessWidget {
       padding: const EdgeInsets.only(top: 5),
       child: Column(
         children: <Widget>[
-          Text(LanguageBr.profilePage_text_full_name,
+          Text(Strings.profilePage_text_full_name,
               style: TextStyle(fontSize: 18.0)),
-          Text(LanguageBr.profilePage_text_local,
+          Text(Strings.profilePage_text_local,
               style: TextStyle(color: Colors.grey[500], fontSize: 14.0)),
         ],
       ),
@@ -97,7 +97,7 @@ class ProfilePage extends StatelessWidget {
                   )),
               Container(
                 margin: const EdgeInsets.only(top: 14, bottom: 4),
-                child: Text(LanguageBr.profilePage_text_event_name,
+                child: Text(Strings.profilePage_text_event_name,
                     style:
                     TextStyle(color: Colors.grey[500], fontSize: 12.0)),
               )

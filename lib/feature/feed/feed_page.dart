@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mp_app/feature/event/event_page.dart';
-import 'package:mp_app/useful/languageBr.dart';
+import 'package:mp_app/value/strings.dart';
 
 class FeedPage extends StatelessWidget {
   List _toDoList = ["aaa", "sdsds", "fsadfa"];
@@ -56,13 +56,13 @@ class FeedPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    LanguageBr.feedPage_text_promoter_name,
+                    Strings.feedPage_text_promoter_name,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 2, bottom: 12),
                     child: Text(
-                      LanguageBr.feedPage_text_promoter_local,
+                      Strings.feedPage_text_promoter_local,
                       style: TextStyle(color: Colors.grey[500], fontSize: 11),
                     ),
                   ),
@@ -99,7 +99,7 @@ class FeedPage extends StatelessWidget {
               left: 10.0,
               top: 14.0,
               child: Text(
-                LanguageBr.feedPage_text_event_name,
+                Strings.feedPage_text_event_name,
                 style: TextStyle(color: Colors.black, fontSize: 14),
               ),
             ),

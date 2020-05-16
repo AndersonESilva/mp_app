@@ -1,6 +1,5 @@
 
-class LanguageBr{
-
+class Strings{
 
   static final feedPage_text_promoter_name = "Nome Promoter";
   static final feedPage_text_promoter_local = "Cidade - SP";
