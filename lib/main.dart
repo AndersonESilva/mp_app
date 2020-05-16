@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mp_app/feature/home/home_page.dart';
-import 'package:mp_app/feature/login/loginPage.dart';
+import 'package:mp_app/feature/login/login_page.dart';
 import 'di/event/authentication_event.dart';
 import 'di/state/authentication_state.dart';
 import 'bloc/authentication_bloc.dart';
