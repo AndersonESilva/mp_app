@@ -12,5 +12,5 @@ abstract class Strings{
   static final profilePage_text_event_date = "Data do evento";
 
   //URL's
-  static final url_authentication = "https://sn02notp7a.execute-api.sa-east-1.amazonaws.com/prod/loginSocial";
+  static final url_authentication = "https://sn02notp7a.execute-api.sa-east-1.amazonaws.com/prod/login";
 }
