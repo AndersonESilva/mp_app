@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mp_app/bloc/authentication_bloc.dart';
+import 'package:mp_app/di/event/authentication_event.dart';
 
 class ProfileAppBar extends StatelessWidget{
   ProfileAppBar(this.logoutCallback);
@@ -32,7 +35,9 @@ class ProfileAppBar extends StatelessWidget{
                     FlatButton(
                       child: Text('Sim'),
                       onPressed: () {
-                        this.logoutCallback();
+                        BlocProvider.of<AuthenticationBloc>(context).add(
+                          LoggedOut(),
+                        );
                         Navigator.of(context).pop();
                       },
                     ),
