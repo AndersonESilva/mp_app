@@ -2,38 +2,72 @@ import 'package:flutter/material.dart';
 import 'package:mp_app/feature/event/event_page.dart';
 import 'package:mp_app/value/strings.dart';
 
-class FeedPage extends StatelessWidget {
+class FeedPage extends StatefulWidget {
+
+  @override
+  _FeedPagePageState createState() => _FeedPagePageState();
+}
+
+class _FeedPagePageState extends State<FeedPage> {
   List _toDoList = ["aaa", "sdsds", "fsadfa"];
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: _toDoList.length,
-        itemBuilder: (contexto, index) {
-          return _buildItem(context, index);
-        });
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: NotificationListener<ScrollNotification>(
+            // ignore: missing_return
+            onNotification: (ScrollNotification scrollInfo) {
+              if (!isLoading && scrollInfo.metrics.pixels ==
+                  scrollInfo.metrics.maxScrollExtent) {
+                //_loadData();
+                setState(() {
+                  isLoading = true;
+                });
+              }
+            },
+            child: ListView.builder(
+              itemCount: _toDoList.length,
+              itemBuilder: (context, index) {
+                return _buildItem(context, index);
+              },
+            ),
+          ),
+        ),
+        Container(
+          height: isLoading ? 50.0 : 0,
+          color: Colors.transparent,
+          child: Center(
+            child: new CircularProgressIndicator(),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildItem(BuildContext context, int index) {
     return Card(
-      child: Container(
-        padding: EdgeInsets.only(top: 10.0),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: Colors.grey[300],
-              width: 2,
+        child: Container(
+          padding: EdgeInsets.only(top: 10.0),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.grey[300],
+                width: 2,
+              ),
             ),
           ),
-        ),
-        child: Column(
-          children: <Widget>[
-            _buildItemTitle(),
-            _buildItemImgEvent(context, index),
-            _buildItemFooter(),
-          ],
-        ),
-      )
+          child: Column(
+            children: <Widget>[
+              _buildItemTitle(),
+              _buildItemImgEvent(context, index),
+              _buildItemFooter(),
+            ],
+          ),
+        )
     );
   }
 
