@@ -20,7 +20,7 @@ class Event extends Equatable {
         title: json['title'],
         banner: json['banner'],
         observed: json['observed'],
-        promoter: json['promoter']
+        promoter: Promoter.fromJson(json['promoter'])
     );
   }
 
