@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mp_app/bloc/feed_bloc.dart';
+import 'package:mp_app/di/event/feed_event.dart';
 import 'package:mp_app/feature/feed/feed_app_bar.dart';
 import 'package:mp_app/feature/feed/feed_page.dart';
 import 'package:mp_app/feature/profile/profile_app_bar.dart';
@@ -17,13 +20,17 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _children = [FeedPage(), ProfilePage()];
 
   int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: _getAppBar(),
         body: RefreshIndicator(
-            onRefresh: _refresh, child: _children[_currentIndex]),
+            onRefresh: _refresh,
+            child: BlocProvider(
+                create: (context) => FeedBloc()..add(Fetch()),
+                child: _children[_currentIndex],
+            )
+        ),
         bottomNavigationBar: _buildBottomNavigationBar());
   }
 
@@ -32,11 +39,11 @@ class _HomePageState extends State<HomePage> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          title: Text(''),
+          title: Text('Feed'),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.dehaze),
-          title: Text(''),
+          title: Text('Perfil'),
         ),
       ],
       currentIndex: _currentIndex,
