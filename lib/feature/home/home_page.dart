@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mp_app/bloc/feed_bloc.dart';
+import 'package:mp_app/data/model/user.dart';
 import 'package:mp_app/di/event/feed_event.dart';
 import 'package:mp_app/feature/feed/feed_app_bar.dart';
 import 'package:mp_app/feature/feed/feed_page.dart';
@@ -8,9 +9,9 @@ import 'package:mp_app/feature/profile/profile_app_bar.dart';
 import 'package:mp_app/feature/profile/profile_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({this.userId});
+  HomePage({this.user});
 
-  final String userId;
+  final User user;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
         body: RefreshIndicator(
             onRefresh: _refresh,
             child: BlocProvider(
-                create: (context) => FeedBloc()..add(Fetch()),
+                create: (context) => FeedBloc(widget.user)..add(Fetch()),
                 child: _children[_currentIndex],
             )
         ),

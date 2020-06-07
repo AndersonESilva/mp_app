@@ -1,13 +1,17 @@
 import 'dart:async';
-import 'package:mp_app/repository/feed_repository.dart';
-import 'package:rxdart/rxdart.dart';
+
+import 'package:bloc/bloc.dart';
+import 'package:mp_app/data/model/user.dart';
 import 'package:mp_app/di/event/feed_event.dart';
 import 'package:mp_app/di/state/feed_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:mp_app/repository/feed_repository.dart';
+import 'package:rxdart/rxdart.dart';
 
 class FeedBloc extends Bloc<FeedEvent, FeedState> {
-
   final FeedRepository _feedRepository = FeedRepository();
+  final User user;
+
+  FeedBloc(this.user);
 
   @override
   Stream<Transition<FeedEvent, FeedState>> transformEvents(
@@ -29,14 +33,14 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     if (event is Fetch && !_hasReachedMax(currentState)) {
       try {
         if (currentState is FeedUninitialized) {
-          final events = await _feedRepository.fetchEvents("5ab813f0-9b7a-11ea-b8e3-a79cef702be3", null);
+          final events = await _feedRepository.fetchEvents(user.id, null);
           yield FeedLoaded(events: events, hasReachedMax: false);
           return;
         }
         if (currentState is FeedLoaded) {
           final count = currentState.events.length;
           final event = currentState.events.elementAt(count - 1);
-          final events = await _feedRepository.fetchEvents("5ab813f0-9b7a-11ea-b8e3-a79cef702be3", event.id);
+          final events = await _feedRepository.fetchEvents(user.id, event.id);
           yield events.isEmpty
               ? currentState.copyWith(hasReachedMax: true)
               : FeedLoaded(events: currentState.events + events, hasReachedMax: false);
