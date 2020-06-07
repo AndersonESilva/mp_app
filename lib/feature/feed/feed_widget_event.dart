@@ -41,7 +41,7 @@ class FeedWidgetEvent extends StatelessWidget {
               width: 40.0,
               height: 40.0,
               child: Image.network(
-                "https://img.freepik.com/vetores-gratis/night-club-neon-sign_72287-520.jpg?size=338&ext=jpg",
+                event.promoter.iconUrl,
                 fit: BoxFit.fill,
               ),
             ),
@@ -51,13 +51,13 @@ class FeedWidgetEvent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    Strings.feedPage_text_promoter_name,
+                    event.promoter.nameDisplay,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 2, bottom: 12),
                     child: Text(
-                      Strings.feedPage_text_promoter_local,
+                      event.promoter.city,
                       style: TextStyle(color: Colors.grey[500], fontSize: 11),
                     ),
                   ),
@@ -79,7 +79,7 @@ class FeedWidgetEvent extends StatelessWidget {
             height: 210.0,
             padding: const EdgeInsets.only(top: 10),
             child: Image.network(
-              "https://www.privilegebrasil.com//conteudo/anexo/BANNER4.jpg",
+              event.banner,
               fit: BoxFit.fill,
             )));
   }
@@ -94,7 +94,7 @@ class FeedWidgetEvent extends StatelessWidget {
               left: 10.0,
               top: 14.0,
               child: Text(
-                Strings.feedPage_text_event_name,
+                event.title,
                 style: TextStyle(color: Colors.black, fontSize: 14),
               ),
             ),
