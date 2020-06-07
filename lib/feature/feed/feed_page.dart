@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mp_app/feature/event/event_page.dart';
-import 'package:mp_app/value/strings.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mp_app/bloc/feed_bloc.dart';
+import 'package:mp_app/di/event/feed_event.dart';
+import 'package:mp_app/di/state/feed_state.dart';
+
+import 'feed_widget_event.dart';
 
 class FeedPage extends StatefulWidget {
 
@@ -9,141 +13,84 @@ class FeedPage extends StatefulWidget {
 }
 
 class _FeedPagePageState extends State<FeedPage> {
-  List _toDoList = ["aaa", "sdsds", "fsadfa"];
+  final _scrollController = ScrollController();
+  final _scrollThreshold = 200.0;
 
   bool isLoading = false;
+  FeedBloc _feedBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+    _feedBloc = BlocProvider.of<FeedBloc>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Expanded(
-          child: NotificationListener<ScrollNotification>(
-            // ignore: missing_return
-            onNotification: (ScrollNotification scrollInfo) {
-              if (!isLoading && scrollInfo.metrics.pixels ==
-                  scrollInfo.metrics.maxScrollExtent) {
-                //_loadData();
-                setState(() {
-                  isLoading = true;
-                });
-              }
+    return BlocBuilder<FeedBloc, FeedState>(
+      // ignore: missing_return
+      builder: (context, state){
+        if (state is FeedUninitialized){
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (state is FeedError){
+          return Center(
+            child: Text('failed to fetch posts'),
+          );
+        }
+
+        if (state is FeedLoaded){
+          if(state.events.isEmpty){
+            return Center(
+              child: Text('no posts'),
+            );
+          }
+          return ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              return index >= state.events.length
+                  ? _bottomLoader()
+                  : FeedWidgetEvent(event: state.events[index]);
             },
-            child: ListView.builder(
-              itemCount: _toDoList.length,
-              itemBuilder: (context, index) {
-                return _buildItem(context, index);
-              },
-            ),
-          ),
-        ),
-        Container(
-          height: isLoading ? 50.0 : 0,
-          color: Colors.transparent,
-          child: Center(
-            child: new CircularProgressIndicator(),
-          ),
-        ),
-      ],
+            itemCount: state.hasReachedMax
+                ? state.events.length
+                : state.events.length + 1,
+            controller: _scrollController,
+          );
+        }
+      },
     );
   }
 
-  Widget _buildItem(BuildContext context, int index) {
-    return Card(
-        child: Container(
-          padding: EdgeInsets.only(top: 10.0),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.grey[300],
-                width: 2,
-              ),
-            ),
+  Widget _bottomLoader(){
+    return Container(
+      alignment: Alignment.center,
+      child: Center(
+        child: SizedBox(
+          width: 33,
+          height: 33,
+          child: CircularProgressIndicator(
+            strokeWidth: 1.5,
           ),
-          child: Column(
-            children: <Widget>[
-              _buildItemTitle(),
-              _buildItemImgEvent(context, index),
-              _buildItemFooter(),
-            ],
-          ),
-        )
+        ),
+      ),
     );
   }
 
-  Widget _buildItemTitle() {
-    return Container(
-        padding: const EdgeInsets.only(top: 2, left: 13),
-        child: Row(
-          children: <Widget>[
-            Container(
-              width: 40.0,
-              height: 40.0,
-              child: Image.network(
-                "https://img.freepik.com/vetores-gratis/night-club-neon-sign_72287-520.jpg?size=338&ext=jpg",
-                fit: BoxFit.fill,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 6),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    Strings.feedPage_text_promoter_name,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 2, bottom: 12),
-                    child: Text(
-                      Strings.feedPage_text_promoter_local,
-                      style: TextStyle(color: Colors.grey[500], fontSize: 11),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ));
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
-  Widget _buildItemImgEvent(BuildContext context, int index) {
-    return GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => EventPage()));
-        },
-        child: Container(
-            width: double.maxFinite,
-            height: 210.0,
-            padding: const EdgeInsets.only(top: 10),
-            child: Image.network(
-              "https://www.privilegebrasil.com//conteudo/anexo/BANNER4.jpg",
-              fit: BoxFit.fill,
-            )));
-  }
-
-  Widget _buildItemFooter() {
-    return Container(
-        constraints: BoxConstraints(maxHeight: 45.0),
-        alignment: Alignment.topRight,
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              left: 10.0,
-              top: 14.0,
-              child: Text(
-                Strings.feedPage_text_event_name,
-                style: TextStyle(color: Colors.black, fontSize: 14),
-              ),
-            ),
-            Positioned(
-              right: 0.0,
-              top: 0.0,
-              child: IconButton(
-                  icon: Icon(Icons.remove_red_eye), iconSize: 20, onPressed: () {}),
-            )
-          ],
-        ));
+  void _onScroll() {
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+    if (maxScroll - currentScroll <= _scrollThreshold) {
+      _feedBloc.add(Fetch());
+    }
   }
 }

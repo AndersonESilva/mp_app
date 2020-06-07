@@ -35,7 +35,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
         }
         if (currentState is FeedLoaded) {
           final count = currentState.events.length;
-          final event = currentState.events.elementAt(count);
+          final event = currentState.events.elementAt(count - 1);
           final events = await _feedRepository.fetchEvents("5ab813f0-9b7a-11ea-b8e3-a79cef702be3", event.id);
           yield events.isEmpty
               ? currentState.copyWith(hasReachedMax: true)

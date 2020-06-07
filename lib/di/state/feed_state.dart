@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:mp_app/data/model/event.dart';
 
@@ -37,6 +36,9 @@ class FeedLoaded extends FeedState {
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
     );
   }
+
+  @override
+  List<Object> get props => [events, hasReachedMax];
 
   @override
   String toString() =>

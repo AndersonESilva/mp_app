@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_downloader/image_downloader.dart';
-import 'file:///C:/Users/Bena/Documents/Flutter/mp_app/lib/bloc/permission_bloc.dart';
+import 'package:mp_app/util/permission_bloc.dart';
 
 class ImagePage extends StatefulWidget {
 

@@ -20,8 +20,13 @@ class FeedRepository{
   };
 
   Future<List<Event>> fetchEvents(String userId, String endEventId) async {
+    int page = 1;
+    if(endEventId != null){
+      page = 2;
+    }
+    final urlEventFetch = urlEvent + "/p/$page";
     final http.Response response = await http.post(
-        urlEvent,
+        urlEventFetch,
         headers: header,
         body: jsonEncode(_toJson(userId, endEventId))
     );
