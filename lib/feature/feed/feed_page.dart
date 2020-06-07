@@ -16,7 +16,6 @@ class _FeedPagePageState extends State<FeedPage> {
   final _scrollController = ScrollController();
   final _scrollThreshold = 200.0;
 
-  bool isLoading = false;
   FeedBloc _feedBloc;
 
   @override
@@ -49,16 +48,19 @@ class _FeedPagePageState extends State<FeedPage> {
               child: Text('no posts'),
             );
           }
-          return ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return index >= state.events.length
-                  ? _bottomLoader()
-                  : FeedWidgetEvent(event: state.events[index]);
-            },
-            itemCount: state.hasReachedMax
-                ? state.events.length
-                : state.events.length + 1,
-            controller: _scrollController,
+          return RefreshIndicator(
+            onRefresh: _refresh,
+            child: ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                return index >= state.events.length
+                    ? _bottomLoader()
+                    : FeedWidgetEvent(event: state.events[index]);
+              },
+              itemCount: state.hasReachedMax
+                  ? state.events.length
+                  : state.events.length + 1,
+              controller: _scrollController,
+            ),
           );
         }
       },
@@ -92,5 +94,11 @@ class _FeedPagePageState extends State<FeedPage> {
     if (maxScroll - currentScroll <= _scrollThreshold) {
       _feedBloc.add(Fetch());
     }
+  }
+
+  Future<Null> _refresh() async{
+    _feedBloc.add(RefreshFetch());
+    await Future.delayed(Duration(seconds: 1));
+    return null;
   }
 }

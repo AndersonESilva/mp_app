@@ -10,3 +10,8 @@ class Fetch extends FeedEvent{
   @override
   String toString() => 'Fetch';
 }
+
+class RefreshFetch extends FeedEvent{
+  @override
+  String toString() => 'RefreshFetch';
+}

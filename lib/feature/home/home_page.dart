@@ -25,12 +25,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: _getAppBar(),
-        body: RefreshIndicator(
-            onRefresh: _refresh,
-            child: BlocProvider(
-                create: (context) => FeedBloc(widget.user)..add(Fetch()),
-                child: _children[_currentIndex],
-            )
+        body: BlocProvider(
+          create: (context) => FeedBloc(widget.user)..add(Fetch()),
+          child: _children[_currentIndex],
         ),
         bottomNavigationBar: _buildBottomNavigationBar());
   }
@@ -53,12 +50,6 @@ class _HomePageState extends State<HomePage> {
         _onTabTapped(index);
       },
     );
-  }
-
-  Future<Null> _refresh() async {
-    await Future.delayed(Duration(seconds: 1));
-
-    return null;
   }
 
   AppBar _getAppBar() {

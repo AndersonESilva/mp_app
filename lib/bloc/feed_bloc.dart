@@ -48,6 +48,10 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       } catch (_) {
         yield FeedError();
       }
+    }else if(event is RefreshFetch){
+      final events = await _feedRepository.fetchEvents(user.id, null);
+      yield FeedLoaded(events: events, hasReachedMax: false);
+      return;
     }
   }
 
