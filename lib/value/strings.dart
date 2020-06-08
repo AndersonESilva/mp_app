@@ -13,5 +13,6 @@ abstract class Strings{
 
   //URL's
   static final url_authentication = "https://sn02notp7a.execute-api.sa-east-1.amazonaws.com/prod/login";
+  static final url_users = "https://0agy7ok818.execute-api.sa-east-1.amazonaws.com/prod/users";
   static final url_events = "https://9lkmpkr4yf.execute-api.sa-east-1.amazonaws.com/prod/event";
 }

@@ -1,101 +1,69 @@
-import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mp_app/data/model/user.dart';
-import 'package:mp_app/service/main_service.dart';
+import 'package:mp_app/value/strings.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class AuthenticationRepository{
+class UserRepository{
+  //Singleton
+  static final UserRepository _userRepository = UserRepository._internal();
 
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final MainService _mainService = MainService();
-
-  Future<String> signIn(String email, String password) async {
-    AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
-    FirebaseUser user = result.user;
-    return user.uid;
+  factory UserRepository(){
+    return _userRepository;
   }
 
-  Future<String> signUp(String email, String password) async {
-    AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    FirebaseUser user = result.user;
-    return user.uid;
-  }
+  UserRepository._internal();
 
-  Future<FirebaseUser> getCurrentUser() async {
-    FirebaseUser user = await _firebaseAuth.currentUser();
-    return user;
-  }
+  String urlUsers = Strings.url_users;
 
-  Future<void> signOut() async {
-    return _firebaseAuth.signOut();
-  }
+  Map<String, String> header =  <String, String>{
+    'Content-Type': 'application/json; charset=UTF-8',
+  };
 
-  Future<void> sendEmailVerification() async {
-    FirebaseUser user = await _firebaseAuth.currentUser();
-    user.sendEmailVerification();
-  }
-
-  Future<bool> isEmailVerified() async {
-    FirebaseUser user = await _firebaseAuth.currentUser();
-    return user.isEmailVerified;
-  }
-
-  Future<User> signWithGoogle() async {
-    GoogleSignIn _googleSignIn = GoogleSignIn(
-        scopes: ['email']
+  Future<void> observe(String idUser, String idEvent) async{
+    final urlObserve = urlUsers + "/observe";
+    final http.Response response = await http.post(
+        urlObserve,
+        headers: header,
+        body: jsonEncode(_toJson(idUser, idEvent))
     );
 
-    final GoogleSignInAccount account = await _googleSignIn.signIn();
-    if(account.id != null){
-      final GoogleSignInAuthentication authentication = await account.authentication;
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
-          idToken: authentication.idToken,
-          accessToken: authentication.accessToken
-      );
+    Map json = jsonDecode(response.body);
 
-      final FirebaseUser user =
-          (await _firebaseAuth.signInWithCredential(credential)).user;
-      print("signed in " + user.displayName);
-
-      var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
-
-      return userService;
-    } else{
-      return null;
+    if(response.statusCode == 200){
+      if(json['statusCode'] == 200){
+        return;
+      }else{
+        throw Exception(json['message']);
+      }
+    }else {
+      throw Exception('Failed to load User');
     }
   }
 
-  Future<User> signWithFacebook() async {
-    var facebookLogin = new FacebookLogin();
-    var result = await facebookLogin.logIn(['email']);
+  Future<void> unobserving(String idUser, String idEvent) async{
+    final urlObserve = urlUsers + "/unobserving";
+    final http.Response response = await http.post(
+        urlObserve,
+        headers: header,
+        body: jsonEncode(_toJson(idUser, idEvent))
+    );
 
-    debugPrint(result.status.toString());
+    Map json = jsonDecode(response.body);
 
-    if (result.status == FacebookLoginStatus.loggedIn) {
-      final AuthCredential credential = FacebookAuthProvider.getCredential(
-          accessToken: result.accessToken.token
-      );
-
-      final FirebaseUser user =
-          (await _firebaseAuth.signInWithCredential(credential)).user;
-      print("signed in " + user.displayName);
-
-      var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
-
-      return userService;
+    if(response.statusCode == 200){
+      if(json['statusCode'] == 200){
+        return;
+      }else{
+        throw Exception(json['message']);
+      }
+    }else {
+      throw Exception('Failed to load User');
     }
-
-    return null;
   }
 
-  Future<User> authentication(FirebaseUser user) async{
-    var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
-
-    return userService;
-  }
+  Map<String, dynamic> _toJson(String idUser, String idEvent) =>
+      {
+        'idUser': idUser,
+        'idEvent': idEvent
+      };
 
 }
