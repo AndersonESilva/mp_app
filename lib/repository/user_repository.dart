@@ -44,7 +44,7 @@ class AuthenticationRepository{
     return user.isEmailVerified;
   }
 
-  Future<String> signWithGoogle() async {
+  Future<User> signWithGoogle() async {
     GoogleSignIn _googleSignIn = GoogleSignIn(
         scopes: ['email']
     );
@@ -63,13 +63,13 @@ class AuthenticationRepository{
 
       var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
 
-      return userService.userID;
+      return userService;
     } else{
       return null;
     }
   }
 
-  Future<String> signWithFacebook() async {
+  Future<User> signWithFacebook() async {
     var facebookLogin = new FacebookLogin();
     var result = await facebookLogin.logIn(['email']);
 
@@ -86,12 +86,16 @@ class AuthenticationRepository{
 
       var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
 
-      return userService.userID;
+      return userService;
     }
 
     return null;
   }
 
+  Future<User> authentication(FirebaseUser user) async{
+    var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
 
+    return userService;
+  }
 
 }

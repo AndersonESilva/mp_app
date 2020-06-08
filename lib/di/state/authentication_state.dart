@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mp_app/data/model/user.dart';
 
 abstract class AuthenticationState extends Equatable {
   const AuthenticationState();
@@ -10,15 +11,15 @@ abstract class AuthenticationState extends Equatable {
 class Uninitialized extends AuthenticationState {}
 
 class Authenticated extends AuthenticationState {
-  final String userId;
+  final User user;
 
-  const Authenticated(this.userId);
-
-  @override
-  List<Object> get props => [userId];
+  const Authenticated(this.user);
 
   @override
-  String toString() => 'Authenticated { userId: $userId }';
+  List<Object> get props => [user];
+
+  @override
+  String toString() => 'Authenticated { user: $user }';
 }
 
 class Unauthenticated extends AuthenticationState {}

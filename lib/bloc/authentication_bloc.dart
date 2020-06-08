@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mp_app/data/model/user.dart';
 import 'package:mp_app/di/event/authentication_event.dart';
 import 'package:mp_app/di/state/authentication_state.dart';
 import 'package:mp_app/repository/user_repository.dart';
@@ -30,7 +32,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       var _userId = user?.uid;
 
       if(_userId.length > 0 && _userId != null){
-        yield Authenticated(_userId);
+        try{
+          final userAuth = await _auth.authentication(user);
+          yield Authenticated(userAuth);
+        }catch(Error){
+          yield AuthenticationError(Error.toString());
+        }
       }else{
         yield Unauthenticated();
       }
@@ -42,8 +49,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   Stream<AuthenticationState> _mapLoggedInFacebookToState() async* {
     try{
-      final _userId = await _auth.signWithFacebook();
-      yield Authenticated(_userId);
+      final _user = await _auth.signWithFacebook();
+      yield Authenticated(_user);
     }catch(Error){
       yield AuthenticationError(Error.toString());
     }
@@ -51,8 +58,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   Stream<AuthenticationState> _mapLoggedInGoogleToState() async* {
     try{
-      final _userId = await _auth.signWithGoogle();
-      yield Authenticated(_userId);
+      final _user = await _auth.signWithGoogle();
+      yield Authenticated(_user);
     }catch(Error){
       yield AuthenticationError(Error.toString());
     }

@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           if(state is Uninitialized){
             return SplashPage();
           }else if (state is Authenticated) {
-            return HomePage(userId: state.userId);
+            return HomePage(user: state.user);
           }else{
             return LoginPage();
           }
