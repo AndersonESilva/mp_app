@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mp_app/bloc/observation_bloc.dart';
 import 'package:mp_app/data/model/event.dart';
+import 'package:mp_app/data/model/user.dart';
+import 'package:mp_app/di/event/observation_event.dart';
 import 'package:mp_app/feature/event/event_page.dart';
-import 'package:mp_app/value/strings.dart';
+import 'package:mp_app/feature/event/observation_widget.dart';
 
-class FeedWidgetEvent extends StatelessWidget {
+class FeedWidgetEvent extends StatefulWidget {
   final Event event;
+  final User user;
 
-  const FeedWidgetEvent({Key key, @required this.event}) : super(key: key);
+  const FeedWidgetEvent({Key key, @required this.event, @required this.user}) : super(key: key);
+
+  @override
+  _FeedWidgetEventState createState() => _FeedWidgetEventState();
+}
+
+class _FeedWidgetEventState extends State<FeedWidgetEvent> {
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +35,8 @@ class FeedWidgetEvent extends StatelessWidget {
           child: Column(
             children: <Widget>[
               _buildItemTitle(),
-              _buildItemImgEvent(context, 1),
-              _buildItemFooter(),
+              _buildItemImgEvent(),
+              _buildItemFooter()
             ],
           ),
         )
@@ -41,7 +52,7 @@ class FeedWidgetEvent extends StatelessWidget {
               width: 40.0,
               height: 40.0,
               child: Image.network(
-                event.promoter.iconUrl,
+                widget.event.promoter.iconUrl,
                 fit: BoxFit.fill,
               ),
             ),
@@ -51,13 +62,13 @@ class FeedWidgetEvent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    event.promoter.nameDisplay,
+                    widget.event.promoter.nameDisplay,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 2, bottom: 12),
                     child: Text(
-                      event.promoter.city,
+                      widget.event.promoter.city,
                       style: TextStyle(color: Colors.grey[500], fontSize: 11),
                     ),
                   ),
@@ -65,10 +76,11 @@ class FeedWidgetEvent extends StatelessWidget {
               ),
             )
           ],
-        ));
+        )
+    );
   }
 
-  Widget _buildItemImgEvent(BuildContext context, int index) {
+  Widget _buildItemImgEvent() {
     return GestureDetector(
         onTap: () {
           Navigator.push(
@@ -79,9 +91,11 @@ class FeedWidgetEvent extends StatelessWidget {
             height: 210.0,
             padding: const EdgeInsets.only(top: 10),
             child: Image.network(
-              event.banner,
+              widget.event.banner,
               fit: BoxFit.fill,
-            )));
+            )
+        )
+    );
   }
 
   Widget _buildItemFooter() {
@@ -94,18 +108,18 @@ class FeedWidgetEvent extends StatelessWidget {
               left: 10.0,
               top: 14.0,
               child: Text(
-                event.title,
+                widget.event.title,
                 style: TextStyle(color: Colors.black, fontSize: 14),
               ),
             ),
-            Positioned(
-              right: 0.0,
-              top: 0.0,
-              child: IconButton(
-                  icon: Icon(Icons.remove_red_eye), iconSize: 20, onPressed: () {}),
+            BlocProvider(
+              create: (context) => ObservationBloc(widget.user.id)..add(ObservationInit(widget.event.observed)),
+              child: ObservationWidget(event: widget.event),
             )
           ],
-        ));
+        )
+    );
   }
-
 }
+
+

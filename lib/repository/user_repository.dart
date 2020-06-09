@@ -18,9 +18,9 @@ class UserRepository{
     'Content-Type': 'application/json; charset=UTF-8',
   };
 
-  Future<void> observe(String idUser, String idEvent) async{
+  Future<Null> observe(String idUser, String idEvent) async{
     final urlObserve = urlUsers + "/observe";
-    final http.Response response = await http.post(
+    final http.Response response = await http.put(
         urlObserve,
         headers: header,
         body: jsonEncode(_toJson(idUser, idEvent))
@@ -39,9 +39,9 @@ class UserRepository{
     }
   }
 
-  Future<void> unobserving(String idUser, String idEvent) async{
+  Future<Null> unobserving(String idUser, String idEvent) async{
     final urlObserve = urlUsers + "/unobserving";
-    final http.Response response = await http.post(
+    final http.Response response = await http.put(
         urlObserve,
         headers: header,
         body: jsonEncode(_toJson(idUser, idEvent))
