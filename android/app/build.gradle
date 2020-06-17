@@ -52,6 +52,27 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "momp"
+
+    productFlavors{
+        develop{
+            dimension "momp"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            manifestPlaceholders = [appName: "Momp DEV"]
+        }
+        homolog{
+            dimension "momp"
+            applicationIdSuffix ".hml"
+            versionNameSuffix "-hml"
+            manifestPlaceholders = [appName: "Momp HML"]
+        }
+        production{
+            dimension "momp"
+            manifestPlaceholders = [appName: "Momp"]
+        }
+    }
 }
 
 flutter {

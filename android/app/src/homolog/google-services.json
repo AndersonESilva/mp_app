@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "425120953765",
+    "firebase_url": "https://momp-hml.firebaseio.com",
+    "project_id": "momp-hml",
+    "storage_bucket": "momp-hml.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425120953765:android:3e81f76215fa6c2421e44c",
+        "android_client_info": {
+          "package_name": "com.bena.mp_app.hml"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425120953765-krl273q1c05tvdbkpgnd6aiig1bk5lo6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa3L33Bsftys-m9J5E8p0p7DOEV68yI_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425120953765-krl273q1c05tvdbkpgnd6aiig1bk5lo6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
