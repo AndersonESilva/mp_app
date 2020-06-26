@@ -7,14 +7,8 @@ class FeedAppBar extends State<AppBar>{
   @override
   AppBar build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
-      title: Text(title),
-      textTheme: TextTheme(
-        title: TextStyle(
-          color: Colors.indigo[300],
-          fontSize: 20.0
-        )
-      ),
+      backgroundColor: Colors.grey[900],
+      title: Image.asset('images/momplogo.png'),
     );
   }
 

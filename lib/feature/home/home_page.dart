@@ -32,17 +32,22 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: _buildBottomNavigationBar());
   }
 
+  BottomNavigationBarItem _buildNavigationBarItem(String text, IconData icon, bool isSelected) {
+    return BottomNavigationBarItem(
+      icon: Icon(icon, color: isSelected ? Colors.orange : Colors.white,),
+      title: Text(text,
+          style: TextStyle(
+              color: isSelected ? Colors.orange : Colors.white
+          )),
+    );
+  }
+
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          title: Text('Feed'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.dehaze),
-          title: Text('Perfil'),
-        ),
+      backgroundColor: Colors.grey[900],
+      items: <BottomNavigationBarItem>[
+        _buildNavigationBarItem('Feed', Icons.home, _currentIndex == 0),
+        _buildNavigationBarItem('Perfil', Icons.dehaze, _currentIndex == 1)
       ],
       currentIndex: _currentIndex,
       fixedColor: Colors.black,

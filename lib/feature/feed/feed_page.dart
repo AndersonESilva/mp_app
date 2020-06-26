@@ -50,16 +50,21 @@ class _FeedPagePageState extends State<FeedPage> {
           }
           return RefreshIndicator(
             onRefresh: _refresh,
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return index >= state.events.length
-                    ? _bottomLoader()
-                    : FeedWidgetEvent(event: state.events[index], user: _feedBloc.user);
-              },
-              itemCount: state.hasReachedMax
-                  ? state.events.length
-                  : state.events.length + 1,
-              controller: _scrollController,
+            child: Container(
+              child: ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  return index >= state.events.length
+                      ? _bottomLoader()
+                      : FeedWidgetEvent(event: state.events[index], user: _feedBloc.user);
+                },
+                itemCount: state.hasReachedMax
+                    ? state.events.length
+                    : state.events.length + 1,
+                controller: _scrollController,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.grey[900],
+              ),
             ),
           );
         }

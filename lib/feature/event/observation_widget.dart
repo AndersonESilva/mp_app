@@ -39,7 +39,7 @@ class _ObservationWidget extends State<ObservationWidget> {
               right: 0.0,
               top: 0.0,
               child: IconButton(
-                  icon: Icon(Icons.remove_red_eye),
+                  icon: Icon(Icons.remove_red_eye, color: Colors.white,),
                   iconSize: 20,
                   onPressed: (){_bloc.add(ObservationChange(widget.event.id));}
                   ),
@@ -51,7 +51,7 @@ class _ObservationWidget extends State<ObservationWidget> {
               right: 0.0,
               top: 0.0,
               child: IconButton(
-                  icon: Icon(Icons.remove_circle_outline),
+                  icon: Icon(Icons.remove_circle_outline, color: Colors.white,),
                   iconSize: 20,
                   onPressed: () {_bloc.add(ObservationChange(widget.event.id));}
                   ),

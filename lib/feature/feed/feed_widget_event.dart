@@ -23,21 +23,18 @@ class _FeedWidgetEventState extends State<FeedWidgetEvent> {
   Widget build(BuildContext context) {
     return Card(
         child: Container(
-          padding: EdgeInsets.only(top: 10.0),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.grey[300],
-                width: 2,
-              ),
+          child: Container(
+            padding: EdgeInsets.only(top: 16),
+            child: Column(
+              children: <Widget>[
+                _buildItemTitle(),
+                _buildItemImgEvent(),
+                _buildItemFooter()
+              ],
             ),
-          ),
-          child: Column(
-            children: <Widget>[
-              _buildItemTitle(),
-              _buildItemImgEvent(),
-              _buildItemFooter()
-            ],
+            decoration: BoxDecoration(
+              color: Colors.grey[850]
+            ),
           ),
         )
     );
@@ -45,7 +42,7 @@ class _FeedWidgetEventState extends State<FeedWidgetEvent> {
 
   Widget _buildItemTitle() {
     return Container(
-        padding: const EdgeInsets.only(top: 2, left: 13),
+        padding: const EdgeInsets.only(top: 2, left: 12, right: 12),
         child: Row(
           children: <Widget>[
             Container(
@@ -55,25 +52,41 @@ class _FeedWidgetEventState extends State<FeedWidgetEvent> {
                 widget.event.promoter.iconUrl,
                 fit: BoxFit.fill,
               ),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey[500], width: 2),
+              ),
             ),
-            Container(
-              padding: const EdgeInsets.only(left: 6),
-              child: Column(
+            Expanded(child: Container(
+              height: 40.0,
+              padding: const EdgeInsets.only(left: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.event.promoter.nameDisplay,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 2, bottom: 12),
-                    child: Text(
-                      widget.event.promoter.city,
-                      style: TextStyle(color: Colors.grey[500], fontSize: 11),
-                    ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.event.promoter.nameDisplay,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.white),
+                      ),
+                      Text(
+                        widget.event.promoter.city,
+                        style: TextStyle(color: Colors.grey[500], fontSize: 11),
+                      ),
+                    ],
                   ),
                 ],
               ),
+            ),),
+            Container(
+              child: Text('30 JUL',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),),
             )
           ],
         )
@@ -109,7 +122,7 @@ class _FeedWidgetEventState extends State<FeedWidgetEvent> {
               top: 14.0,
               child: Text(
                 widget.event.title,
-                style: TextStyle(color: Colors.black, fontSize: 14),
+                style: TextStyle(color: Colors.white, fontSize: 14),
               ),
             ),
             BlocProvider(
