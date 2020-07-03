@@ -5,6 +5,7 @@ import 'package:mp_app/feature/login/login_page.dart';
 import 'di/event/authentication_event.dart';
 import 'di/state/authentication_state.dart';
 import 'bloc/authentication_bloc.dart';
+import 'feature/login/login_screen.dart';
 import 'feature/splash/splash_page.dart';
 import 'bloc/bloc_delegate.dart';
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           }else if (state is Authenticated) {
             return HomePage(user: state.user);
           }else{
-            return LoginPage();
+            return LoginScreen();
           }
         },
       )
