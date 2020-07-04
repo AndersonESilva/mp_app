@@ -36,7 +36,7 @@ class ProfileAppBar extends StatelessWidget{
                       child: Text('Sim'),
                       onPressed: () {
                         BlocProvider.of<AuthenticationBloc>(context).add(
-                          LoggedOut(),
+                          AuthenticationLoggedOut(),
                         );
                         Navigator.of(context).pop();
                       },

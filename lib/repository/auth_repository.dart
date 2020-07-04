@@ -34,16 +34,6 @@ class AuthenticationRepository{
     return _firebaseAuth.signOut();
   }
 
-  Future<void> sendEmailVerification() async {
-    FirebaseUser user = await _firebaseAuth.currentUser();
-    user.sendEmailVerification();
-  }
-
-  Future<bool> isEmailVerified() async {
-    FirebaseUser user = await _firebaseAuth.currentUser();
-    return user.isEmailVerified;
-  }
-
   Future<User> signWithGoogle() async {
     GoogleSignIn _googleSignIn = GoogleSignIn(
         scopes: ['email']
@@ -61,9 +51,7 @@ class AuthenticationRepository{
           (await _firebaseAuth.signInWithCredential(credential)).user;
       print("signed in " + user.displayName);
 
-      var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
-
-      return userService;
+      return User("", user.displayName, user.email, user.photoUrl, user.uid);
     } else{
       return null;
     }
@@ -84,17 +72,14 @@ class AuthenticationRepository{
           (await _firebaseAuth.signInWithCredential(credential)).user;
       print("signed in " + user.displayName);
 
-      var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
-
-      return userService;
+      return User("", user.displayName, user.email, user.photoUrl, user.uid);
     }
 
     return null;
   }
 
-  Future<User> authentication(FirebaseUser user) async{
-    var userService = await _mainService.authentication(User("", user.displayName, user.email, user.photoUrl, user.uid));
-
+  Future<User> authentication(User user) async{
+    var userService = await _mainService.authentication(user);
     return userService;
   }
 

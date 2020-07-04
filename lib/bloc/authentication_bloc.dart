@@ -10,29 +10,28 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   final _auth = AuthenticationRepository();
 
   @override
-  get initialState => Uninitialized();
+  get initialState => AuthenticationInitial();
 
   @override
   Stream<AuthenticationState> mapEventToState(event) async*{
-    if(event is AppStarted){
-        yield* _mapAppStartedToState();
-    } else if (event is LoggedInFacebook){
-        yield* _mapLoggedInFacebookToState();
-    } else if (event is LoggedInGoogle){
-      yield* _mapLoggedInGoogleToState();
-    } else if (event is LoggedOut){
+    if(event is AuthenticationStarted){
+      yield* _mapAppStartedToState();
+    } else if (event is AuthenticationLoggedIn){
+      yield* _mapLoggedIn(event.user);
+    } else if (event is AuthenticationLoggedOut){
       yield* _mapLoggedOutToState();
     }
   }
 
   Stream<AuthenticationState> _mapAppStartedToState() async* {
-    final user = await _auth.getCurrentUser();
+    final userFire = await _auth.getCurrentUser();
 
-    if (user != null) {
-      var _userId = user?.uid;
+    if (userFire != null) {
+      var _userId = userFire?.uid;
 
       if(_userId.length > 0 && _userId != null){
         try{
+          final user = User("", userFire.displayName, userFire.email, userFire.photoUrl, userFire.uid);
           final userAuth = await _auth.authentication(user);
           yield Authenticated(userAuth);
         }catch(Error){
@@ -47,18 +46,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }
   }
 
-  Stream<AuthenticationState> _mapLoggedInFacebookToState() async* {
+  Stream<AuthenticationState> _mapLoggedIn(User user) async* {
     try{
-      final _user = await _auth.signWithFacebook();
-      yield Authenticated(_user);
-    }catch(Error){
-      yield AuthenticationError(Error.toString());
-    }
-  }
-
-  Stream<AuthenticationState> _mapLoggedInGoogleToState() async* {
-    try{
-      final _user = await _auth.signWithGoogle();
+      final _user = await _auth.authentication(user);
       yield Authenticated(_user);
     }catch(Error){
       yield AuthenticationError(Error.toString());
