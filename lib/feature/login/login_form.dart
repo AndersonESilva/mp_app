@@ -6,6 +6,7 @@ import 'package:mp_app/bloc/login_bloc.dart';
 import 'package:mp_app/di/event/authentication_event.dart';
 import 'package:mp_app/di/event/login_event.dart';
 import 'package:mp_app/di/state/login_state.dart';
+import 'package:mp_app/feature/register/register_options.dart';
 import 'package:mp_app/feature/register/register_screen.dart';
 
 class LoginForm extends StatefulWidget {
@@ -198,7 +199,7 @@ class _LoginFormState extends State<LoginForm> {
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) {
-            return RegisterScreen();
+            return RegisterOptions();
           }),
         );
       },
