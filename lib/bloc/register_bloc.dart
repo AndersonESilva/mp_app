@@ -29,34 +29,31 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   @override
-  Stream<RegisterState> mapEventToState(
-      RegisterEvent event,
-      ) async* {
+  Stream<RegisterState> mapEventToState(RegisterEvent event) async* {
+
     if (event is RegisterEmailChanged) {
       yield* _mapRegisterEmailChangedToState(event.email);
     } else if (event is RegisterPasswordChanged) {
       yield* _mapRegisterPasswordChangedToState(event.password);
     } else if (event is RegisterSubmitted) {
       yield* _mapRegisterSubmittedToState(event.email, event.password);
+    } else if (event is RegisterEmailSearch){
+      yield* _mapRegisterEmailSearch();
     }
   }
 
-  Stream<RegisterState> _mapRegisterEmailChangedToState(String email) async* {
+  Stream<RegisterState> _mapRegisterEmailChangedToState(String email) async*{
     yield state.update(
       isEmailValid: Validators.isValidEmail(email),
     );
   }
 
-  Stream<RegisterState> _mapRegisterPasswordChangedToState(String password) async* {
-    yield state.update(
-      isPasswordValid: Validators.isValidPassword(password),
+  Stream<RegisterState> _mapRegisterPasswordChangedToState(String password) async*{
+    yield state.update(isPasswordValid: Validators.isValidPassword(password),
     );
   }
 
-  Stream<RegisterState> _mapRegisterSubmittedToState(
-      String email,
-      String password,
-      ) async* {
+  Stream<RegisterState> _mapRegisterSubmittedToState(String email,String password) async*{
     yield RegisterState.loading();
     try {
 //      await _userRepository.signUp(
@@ -67,5 +64,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     } catch (_) {
       yield RegisterState.failure();
     }
+  }
+
+  Stream<RegisterState> _mapRegisterEmailSearch() async*{
+    yield RegisterState.navPassword();
   }
 }

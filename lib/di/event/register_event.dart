@@ -49,3 +49,9 @@ class RegisterSubmitted extends RegisterEvent {
     return 'RegisterSubmitted { email: $email, password: $password }';
   }
 }
+
+class RegisterEmailSearch extends RegisterEvent{
+
+  @override
+  String toString() => 'RegisterEmailSearch';
+}

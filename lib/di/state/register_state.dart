@@ -7,6 +7,7 @@ class RegisterState {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final bool navPassword;
 
   bool get isFormValid => isEmailValid && isPasswordValid;
 
@@ -16,6 +17,7 @@ class RegisterState {
     @required this.isSubmitting,
     @required this.isSuccess,
     @required this.isFailure,
+    @required this.navPassword,
   });
 
   factory RegisterState.initial() {
@@ -25,6 +27,18 @@ class RegisterState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
+      navPassword: false
+    );
+  }
+
+  factory RegisterState.navPassword(){
+    return RegisterState(
+      isEmailValid: true,
+      isPasswordValid: true,
+      isSubmitting: false,
+      isSuccess: false,
+      isFailure: false,
+      navPassword: true
     );
   }
 
@@ -35,6 +49,7 @@ class RegisterState {
       isSubmitting: true,
       isSuccess: false,
       isFailure: false,
+      navPassword: false
     );
   }
 
@@ -45,6 +60,7 @@ class RegisterState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: true,
+      navPassword: false
     );
   }
 
@@ -55,6 +71,7 @@ class RegisterState {
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
+      navPassword: false
     );
   }
 
@@ -68,6 +85,7 @@ class RegisterState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
+      navPassword: false,
     );
   }
 
@@ -78,6 +96,7 @@ class RegisterState {
     bool isSubmitting,
     bool isSuccess,
     bool isFailure,
+    bool navPassword,
   }) {
     return RegisterState(
       isEmailValid: isEmailValid ?? this.isEmailValid,
@@ -85,6 +104,7 @@ class RegisterState {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
+      navPassword: navPassword ?? this.navPassword
     );
   }
 
@@ -95,7 +115,8 @@ class RegisterState {
       isPasswordValid: $isPasswordValid,
       isSubmitting: $isSubmitting,
       isSuccess: $isSuccess,
-      isFailure: $isFailure,
+      isFailure: $isFailure,,
+      navPassword: $navPassword,
     }''';
   }
 }

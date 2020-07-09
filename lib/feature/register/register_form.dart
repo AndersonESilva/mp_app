@@ -1,32 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mp_app/bloc/register_bloc.dart';
-import 'package:mp_app/di/event/register_event.dart';
 import 'package:mp_app/di/state/register_state.dart';
+import 'package:mp_app/feature/register/register_form_email.dart';
+import 'package:mp_app/feature/register/register_form_password.dart';
 
 class RegisterForm extends StatefulWidget {
   State<RegisterForm> createState() => _RegisterFormState();
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
 
   RegisterBloc _registerBloc;
 
-  bool get isPopulated =>
-      _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
-
-  bool isRegisterButtonEnabled(RegisterState state) {
-    return state.isFormValid && isPopulated && !state.isSubmitting;
-  }
-
   @override
   void initState() {
-    super.initState();
     _registerBloc = BlocProvider.of<RegisterBloc>(context);
-    _emailController.addListener(_onEmailChanged);
-    _passwordController.addListener(_onPasswordChanged);
+    super.initState();
   }
 
   @override
@@ -52,6 +42,13 @@ class _RegisterFormState extends State<RegisterForm> {
 //          BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
 //          Navigator.of(context).pop();
         }
+        if (state.navPassword){
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return RegisterFormPassword(registerBloc: _registerBloc);
+            }),
+          );
+        }
         if (state.isFailure) {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
@@ -71,50 +68,7 @@ class _RegisterFormState extends State<RegisterForm> {
       },
       child: BlocBuilder<RegisterBloc, RegisterState>(
         builder: (context, state) {
-          return Padding(
-            padding: EdgeInsets.all(20),
-            child: Form(
-              child: ListView(
-                children: <Widget>[
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.email),
-                      labelText: 'Email',
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: false,
-                    autovalidate: true,
-                    validator: (_) {
-                      return !state.isEmailValid ? 'Invalid Email' : null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.lock),
-                      labelText: 'Password',
-                    ),
-                    obscureText: true,
-                    autocorrect: false,
-                    autovalidate: true,
-                    validator: (_) {
-                      return !state.isPasswordValid ? 'Invalid Password' : null;
-                    },
-                  ),
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    onPressed: isRegisterButtonEnabled(state)
-                      ? _onFormSubmitted
-                      : null,
-                    child: Text('Register'),
-                  ),
-                ],
-              ),
-            ),
-          );
+          return RegisterFormEmail();
         },
       ),
     );
@@ -122,29 +76,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
     super.dispose();
-  }
-
-  void _onEmailChanged() {
-    _registerBloc.add(
-      RegisterEmailChanged(email: _emailController.text),
-    );
-  }
-
-  void _onPasswordChanged() {
-    _registerBloc.add(
-      RegisterPasswordChanged(password: _passwordController.text),
-    );
-  }
-
-  void _onFormSubmitted() {
-    _registerBloc.add(
-      RegisterSubmitted(
-        email: _emailController.text,
-        password: _passwordController.text,
-      ),
-    );
   }
 }
