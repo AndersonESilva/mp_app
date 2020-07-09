@@ -6,6 +6,7 @@ import 'package:mp_app/bloc/login_bloc.dart';
 import 'package:mp_app/di/event/authentication_event.dart';
 import 'package:mp_app/di/event/login_event.dart';
 import 'package:mp_app/di/state/login_state.dart';
+import 'package:mp_app/feature/register/register_screen.dart';
 
 class LoginForm extends StatefulWidget {
 
@@ -116,7 +117,7 @@ class _LoginFormState extends State<LoginForm> {
                       children: <Widget>[
                         _loginButton(state),
                         _showSocialButton(),
-                        //CreateAccountButton(userRepository: _userRepository),
+                        _createAccountButton()
                       ],
                     ),
                   ),
@@ -186,6 +187,21 @@ class _LoginFormState extends State<LoginForm> {
       },
       label: Text('Sign in with Google', style: TextStyle(color: Colors.white)),
       color: Colors.redAccent,
+    );
+  }
+
+  Widget _createAccountButton(){
+    return FlatButton(
+      child: Text(
+        'Create an Account',
+      ),
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) {
+            return RegisterScreen();
+          }),
+        );
+      },
     );
   }
 
