@@ -31,7 +31,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
       if(_userId.length > 0 && _userId != null){
         try{
-          final user = User("", userFire.displayName, userFire.email, userFire.photoUrl, userFire.uid);
+          final user = User("", userFire.displayName, userFire.email, userFire.photoUrl, userFire.uid, "", "");
           final userAuth = await _auth.authentication(user);
           yield Authenticated(userAuth);
         }catch(Error){

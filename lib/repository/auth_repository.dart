@@ -51,7 +51,7 @@ class AuthenticationRepository{
           (await _firebaseAuth.signInWithCredential(credential)).user;
       print("signed in " + user.displayName);
 
-      return User("", user.displayName, user.email, user.photoUrl, user.uid);
+      return User("", user.displayName, user.email, user.photoUrl, user.uid, "", "");
     } else{
       return null;
     }
@@ -72,7 +72,7 @@ class AuthenticationRepository{
           (await _firebaseAuth.signInWithCredential(credential)).user;
       print("signed in " + user.displayName);
 
-      return User("", user.displayName, user.email, user.photoUrl, user.uid);
+      return User("", user.displayName, user.email, user.photoUrl, user.uid, "", "");
     }
 
     return null;
