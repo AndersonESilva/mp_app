@@ -12,18 +12,20 @@ class UserRepository{
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final UserService _userService = UserService();
 
-  Future<String> signIn(String email, String password) async {
+  Future<User> signIn(String email, String password) async {
     AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
     FirebaseUser user = result.user;
-    return user.uid;
+    final User _user = await getUserEmail(user.email);
+    return _user;
   }
 
   Future<User> createUser(String email, String password) async {
     AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     FirebaseUser user = result.user;
-    return User("", user.displayName, user.email, user.photoUrl, user.uid, "", "firebase");
+    final User _user = await _userService.createUser(User("", user.displayName, user.email, user.photoUrl, user.uid, "", "firebase"));
+    return _user;
   }
 
   Future<FirebaseUser> getCurrentUser() async {

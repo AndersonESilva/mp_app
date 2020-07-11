@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:mp_app/data/model/event.dart';
 
 abstract class ObservationState extends Equatable {
   ObservationState([List props = const []]);

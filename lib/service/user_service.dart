@@ -83,6 +83,26 @@ class UserService{
     }
   }
 
+  Future<User> createUser(User user) async{
+    final http.Response response = await http.post(
+        urlBase,
+        headers: header,
+        body: jsonEncode(user.toJson())
+    );
+
+    Map json = jsonDecode(response.body);
+
+    if(response.statusCode == 200){
+      if(json['statusCode'] == 200){
+        return User.fromJson(json['body']);
+      }else{
+        throw Exception(json['message']);
+      }
+    }else {
+      throw Exception('Failed to load User');
+    }
+  }
+
   Map<String, dynamic> _toJson(String idUser, String idEvent) =>
       {
         'idUser': idUser,

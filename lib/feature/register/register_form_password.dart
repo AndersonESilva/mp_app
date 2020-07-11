@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mp_app/bloc/register_bloc.dart';
 import 'package:mp_app/di/event/register_event.dart';
 import 'package:mp_app/di/state/register_state.dart';
@@ -19,6 +18,7 @@ class _RegisterFormPasswordState extends State<RegisterFormPassword> {
   bool get isPopulated => _passwordController.text.isNotEmpty;
 
   bool isRegisterButtonEnabled(RegisterState state) {
+    return true;
     return state.isFormValid && isPopulated && !state.isSubmitting;
   }
 
@@ -81,8 +81,10 @@ class _RegisterFormPasswordState extends State<RegisterFormPassword> {
   }
 
   void _onFormSubmitted() {
+    String email = widget.registerBloc.state.email;
     widget.registerBloc.add(
       RegisterSubmitted(
+        email: email,
         password: _passwordController.text,
       ),
     );

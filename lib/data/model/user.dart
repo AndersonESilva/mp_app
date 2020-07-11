@@ -28,6 +28,6 @@ class User {
         'photoUrl': photoUrl,
         'userID': userID,
         'nickname': nickname,
-        'userID': userID,
+        'origin': origin,
       };
 }

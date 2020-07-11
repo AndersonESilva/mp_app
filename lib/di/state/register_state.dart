@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:mp_app/data/model/user.dart';
 
 @immutable
 class RegisterState {
@@ -8,6 +9,8 @@ class RegisterState {
   final bool isSuccess;
   final bool isFailure;
   final bool navPassword;
+  final String email;
+  final User user;
 
   bool get isFormValid => isEmailValid && isPasswordValid;
 
@@ -18,6 +21,8 @@ class RegisterState {
     @required this.isSuccess,
     @required this.isFailure,
     @required this.navPassword,
+    @required this.email,
+    @required this.user,
   });
 
   factory RegisterState.initial() {
@@ -31,14 +36,15 @@ class RegisterState {
     );
   }
 
-  factory RegisterState.navPassword(){
+  factory RegisterState.navPassword(String _email){
     return RegisterState(
       isEmailValid: true,
       isPasswordValid: true,
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
-      navPassword: true
+      navPassword: true,
+      email: _email
     );
   }
 
@@ -64,14 +70,15 @@ class RegisterState {
     );
   }
 
-  factory RegisterState.success() {
+  factory RegisterState.success(User _user) {
     return RegisterState(
       isEmailValid: true,
       isPasswordValid: true,
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
-      navPassword: false
+      navPassword: false,
+      user: _user
     );
   }
 
@@ -97,6 +104,7 @@ class RegisterState {
     bool isSuccess,
     bool isFailure,
     bool navPassword,
+    String email,
   }) {
     return RegisterState(
       isEmailValid: isEmailValid ?? this.isEmailValid,
@@ -104,7 +112,8 @@ class RegisterState {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
-      navPassword: navPassword ?? this.navPassword
+      navPassword: navPassword ?? this.navPassword,
+      email: email ?? this.email
     );
   }
 
@@ -115,8 +124,9 @@ class RegisterState {
       isPasswordValid: $isPasswordValid,
       isSubmitting: $isSubmitting,
       isSuccess: $isSuccess,
-      isFailure: $isFailure,,
+      isFailure: $isFailure,
       navPassword: $navPassword,
+      email: $email,
     }''';
   }
 }

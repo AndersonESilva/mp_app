@@ -53,7 +53,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   Stream<RegisterState> _mapRegisterPasswordChangedToState(String password) async*{
-    yield state.update(isPasswordValid: Validators.isValidPassword(password),
+    yield state.update(
+      isPasswordValid: Validators.isValidPassword(password),
     );
   }
 
@@ -61,7 +62,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     yield RegisterState.loading();
     final _user = await _userRepository.getUserEmail(email);
     if(_user == null){
-      yield RegisterState.navPassword();
+      yield RegisterState.navPassword(email);
     }else{
       yield RegisterState.failure();
     }
@@ -70,11 +71,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   Stream<RegisterState> _mapRegisterSubmittedToState(String email,String password) async*{
     yield RegisterState.loading();
     try {
-//      await _userRepository.signUp(
-////        email: email,
-////        password: password,
-////      );
-      yield RegisterState.success();
+      final _user = await _userRepository.createUser(email, password);
+      yield RegisterState.success(_user);
     } catch (_) {
       yield RegisterState.failure();
     }

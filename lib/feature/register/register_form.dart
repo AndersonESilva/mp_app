@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mp_app/bloc/authentication_bloc.dart';
 import 'package:mp_app/bloc/register_bloc.dart';
+import 'package:mp_app/di/event/authentication_event.dart';
 import 'package:mp_app/di/state/register_state.dart';
 import 'package:mp_app/feature/register/register_form_email.dart';
 import 'package:mp_app/feature/register/register_form_password.dart';
@@ -39,8 +41,8 @@ class _RegisterFormState extends State<RegisterForm> {
             );
         }
         if (state.isSuccess) {
-//          BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
-//          Navigator.of(context).pop();
+          BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLoggedIn(user: state.user));
+          Navigator.of(context).pop();
         }
         if (state.navPassword){
           Navigator.of(context).push(
