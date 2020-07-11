@@ -50,9 +50,9 @@ class _RegisterFormEmailState extends State<RegisterFormEmail> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
-              onPressed: (){
-                _registerBloc.add(RegisterEmailSearch());
-              },
+              onPressed: isRegisterButtonEnabled(_registerBloc.state)
+                  ? _onFormSubmitted
+                  : null,
               child: Text('Register'),
             ),
           ],
@@ -75,7 +75,7 @@ class _RegisterFormEmailState extends State<RegisterFormEmail> {
 
   void _onFormSubmitted() {
     _registerBloc.add(
-      RegisterSubmitted(
+      RegisterCheckEmail(
         email: _emailController.text
       ),
     );

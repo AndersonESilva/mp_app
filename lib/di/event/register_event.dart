@@ -32,6 +32,22 @@ class RegisterPasswordChanged extends RegisterEvent {
   String toString() => 'RegisterPasswordChanged { password: $password }';
 }
 
+class RegisterCheckEmail extends RegisterEvent {
+  final String email;
+
+  const RegisterCheckEmail({
+    @required this.email,
+  });
+
+  @override
+  List<Object> get props => [email];
+
+  @override
+  String toString() {
+    return 'RegisterCheckEmail { email: $email}';
+  }
+}
+
 class RegisterSubmitted extends RegisterEvent {
   final String email;
   final String password;
@@ -50,8 +66,3 @@ class RegisterSubmitted extends RegisterEvent {
   }
 }
 
-class RegisterEmailSearch extends RegisterEvent{
-
-  @override
-  String toString() => 'RegisterEmailSearch';
-}

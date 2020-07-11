@@ -7,7 +7,7 @@ import 'package:mp_app/data/model/user.dart';
 import 'package:mp_app/service/main_service.dart';
 import 'package:mp_app/service/user_service.dart';
 
-class AuthenticationRepository{
+class UserRepository{
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final UserService _userService = UserService();
@@ -79,8 +79,8 @@ class AuthenticationRepository{
     return null;
   }
 
-  Future<User> getUserEmail(User userRequest) async{
-    var user = await _userService.getUserEmail(userRequest);
+  Future<User> getUserEmail(String email) async{
+    var user = await _userService.getUserEmail(email);
     return user;
   }
 

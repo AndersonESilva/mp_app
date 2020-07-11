@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mp_app/di/event/observation_event.dart';
 import 'package:mp_app/di/state/observation_state.dart';
-import 'package:mp_app/repository/user_repository.dart';
+import 'file:///C:/Users/Bena/Documents/Flutter/mp_app/lib/service/user_service.dart';
 
 class ObservationBloc extends Bloc<ObservationEvent, ObservationState> {
-  final UserRepository _userRepository = UserRepository();
+  final UserService _userRepository = UserService();
   final String idUser;
 
   ObservationBloc(this.idUser);

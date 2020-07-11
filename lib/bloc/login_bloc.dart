@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:mp_app/di/event/login_event.dart';
 import 'package:mp_app/di/state/login_state.dart';
-import 'package:mp_app/repository/auth_repository.dart';
 import 'package:mp_app/repository/user_repository.dart';
 import 'package:mp_app/util/validators.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final _authRepository = AuthenticationRepository();
+  final _userRepository = UserRepository();
 
   @override
   LoginState get initialState => LoginState.initial();
@@ -63,7 +61,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Stream<LoginState> _mapLoginWithFacebookPressedToState() async* {
     try {
-      final _user = await _authRepository.signWithFacebook();
+      final _user = await _userRepository.signWithFacebook();
       yield LoginState.success(_user);
     } catch (_) {
       yield LoginState.failure();
@@ -72,7 +70,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Stream<LoginState> _mapLoginWithGooglePressedToState() async* {
     try {
-      final _user = await _authRepository.signWithGoogle();
+      final _user = await _userRepository.signWithGoogle();
       yield LoginState.success(_user);
     } catch (_) {
       yield LoginState.failure();
@@ -85,8 +83,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }) async* {
     yield LoginState.loading();
     try {
-      //await _userRepository.signInWithCredentials(email, password);
-      yield LoginState.success(null);
+      final _user = await _userRepository.createUser(email, password);
+      yield LoginState.success(_user);
     } catch (_) {
       yield LoginState.failure();
     }
