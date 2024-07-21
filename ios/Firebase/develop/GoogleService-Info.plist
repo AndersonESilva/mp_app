@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>990917618032-rke00nrourjndqem0ep98qcgmv7cuabk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.990917618032-rke00nrourjndqem0ep98qcgmv7cuabk</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>990917618032-dn5u0td0a6tmpn35io8iuh1k5ol3ru4m.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCFTTTRHBmVWz7XFs6t7Y4fYZZ8DIKfiJM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>990917618032</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>br.com.momp.dev</string>
+	<key>PROJECT_ID</key>
+	<string>momp-dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>momp-dev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:990917618032:ios:fdbbe6daa96a98101207b5</string>
+	<key>DATABASE_URL</key>
+	<string>https://momp-dev.firebaseio.com</string>
+</dict>
+</plist>
